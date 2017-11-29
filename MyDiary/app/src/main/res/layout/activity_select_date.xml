@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.phanv.mydiary.Activity.SelectDateActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/select_day"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="30sp"
+        tools:fontFamily="casual"/>
+
+    <CalendarView
+        android:id="@+id/cldView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:fontFamily="casual"/>
+
+    <Button
+        android:id="@+id/btWrite"
+        style="@android:style/Widget.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:text="@string/btWrite"
+        android:textColor="?android:attr/textColorLink"
+        tools:fontFamily="casual"
+        tools:textColor="@android:color/holo_orange_dark" />
+
+</LinearLayout>

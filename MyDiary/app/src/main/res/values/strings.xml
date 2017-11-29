@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">My Diary</string>
+    <string name="select_day">Select day</string>
+    <string name="error_message">Have error, Try later !</string>
+    <string name="btWrite">Write</string>
+    <string name="btSave">Save</string>
+    <string name="btHome">Home</string>
+    <string name="btEdit">Edit</string>
+    <string name="btDel">Delete</string>
+    <string name="title">Title</string>
+    <string name="detail">Detail</string>
+    <string name="diary">Diary</string>
+    <string name="inputError">You must enter all information</string>
+    <string name="favorite">Fovorite</string>
+    <string name="messageDialog">Do you want to delete ?</string>
+    <string name="titleDealog">Delete diary</string>
+    <string name="deleteSuccess">Deleted</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="remind">Remind to write diary</string>
+    <string name="timeRemind">Select time to remind</string>
+    <string name="write_diary_remind">Did you write diary ?</string>
+    <string name="version">Version 1.0</string>
+    <string name="feeback">Develop by Dat Phan</string>
+    <string name="contactTome">Contact to me</string>
+    <string name="errMail">Don\'t have any mail application</string>
+    <string name="feedbackDiary">Feedback about Diary app</string>
+    <string name="bodyMail">Enter your feedback</string>
+    <string name="sendMail">Send Feedback Mail</string>
+    <string name="exit">Exit</string>
+    <string name="exitDiary">Exit Diary</string>
+    <string name="exitConfirm">Do you want to close app ?</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nhật ký</string>
+    <string name="select_day">Chọn ngày</string>
+    <string name="error_message">Có lỗi xảy ra, thử lại sau !</string>
+    <string name="btSave">Lưu</string>
+    <string name="btWrite">Viết</string>
+    <string name="btHome">Home</string>
+    <string name="btDel">Xóa</string>
+    <string name="btEdit">Sửa</string>
+    <string name="detail">Chi tiết</string>
+    <string name="title">Tiêu đề</string>
+    <string name="diary">Nhật ký</string>
+    <string name="inputError">Bạn phải nhập hết tất cả thoogn tin</string>
+    <string name="favorite">Yêu thích</string>
+    <string name="titleDealog">Xóa nhật ky</string>
+    <string name="messageDialog">Bạn có muốn xóa không ?</string>
+    <string name="cancel">Hủy</string>
+    <string name="deleteSuccess">Xóa thành công</string>
+    <string name="delete">Xóa</string>
+    <string name="remind">Nhắc viết nhật ký</string>
+    <string name="timeRemind">Chọn thời gian nhắc nhở</string>
+    <string name="write_diary_remind">Hôm nay bạn đã viết nhật ký ?</string>
+    <string name="feeback">Phát triển bởi Đạt Phan</string>
+    <string name="version">Phiên bản 1.0</string>
+    <string name="contactTome">Góp ý với tôi</string>
+    <string name="errMail">Không có phần mềm gửi mail nào</string>
+    <string name="feedbackDiary">Góp ý về ứng dụng Nhật Ký</string>
+    <string name="bodyMail">Nhập nội dung góp ý</string>
+    <string name="sendMail">Gửi thư góp ý</string>
+    <string name="exit">Thoát</string>
+    <string name="exitDiary">Thoát Nhật Ký</string>
+    <string name="exitConfirm">Bán muốn thoát ứng dụng ?</string>
+</resources>
