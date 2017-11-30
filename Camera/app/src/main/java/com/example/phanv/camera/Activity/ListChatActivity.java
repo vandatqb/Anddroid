@@ -78,4 +78,10 @@ public class ListChatActivity extends AppCompatActivity implements SearchView.On
         mAdapter.getFilter().filter(newText);
         return false;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

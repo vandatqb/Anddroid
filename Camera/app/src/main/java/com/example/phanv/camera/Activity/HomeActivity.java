@@ -68,7 +68,6 @@ public class HomeActivity extends AppCompatActivity
 
         if (loged) {
 
-
             if (local.getImgae().length() > 40) {
                 Picasso.with(getBaseContext()).load(local.getImgae()).into(img);
             } else {
@@ -110,6 +109,16 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_account: {
                 if (loged) {
                     Intent intent = new Intent(this, AccountActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            }
+            case R.id.nav_product:{
+                if (loged) {
+                    Intent intent = new Intent(this, ProductActivity.class);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(this, LoginActivity.class);

@@ -18,7 +18,7 @@ public class ChangePassActivity extends AppCompatActivity {
     EditText edNewPass;
     EditText edRePass;
     Button btChange;
-    AccountProcess process;
+    AccountProcess process= new AccountProcess();
     Activity activity;
 
     @Override
@@ -39,18 +39,29 @@ public class ChangePassActivity extends AppCompatActivity {
                 if (old.length() > 5 & newPass.length() > 5 & rePass.length() > 5 & newPass.equals(rePass)) {
                     LocalData data = new LocalData(activity);
                     Local local = data.read();
-                    int result = process.upPass(local.getId(), old, newPass);
-                    if (result < 0) {
+                    try {
+                        int result = process.upPass(local.getId(), old, newPass);
+
+                        if (result < 0) {
+                            Toast.makeText(activity, "Đã có lỗi xảy ra", Toast.LENGTH_SHORT).show();
+                        }
+                        if (result == 0) {
+                            Toast.makeText(activity, "Thông tin không chính xác", Toast.LENGTH_SHORT).show();
+                        }
+                        if (result > 0) {
+                            Toast.makeText(activity, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
                         Toast.makeText(activity, "Đã có lỗi xảy ra", Toast.LENGTH_SHORT).show();
                     }
-                    if (result == 0) {
-                        Toast.makeText(activity, "Thông tin không chính xác", Toast.LENGTH_SHORT).show();
-                    }
-                    if (result > 0) {
-                        Toast.makeText(activity, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
-                    }
                 }
-            }
+            };
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

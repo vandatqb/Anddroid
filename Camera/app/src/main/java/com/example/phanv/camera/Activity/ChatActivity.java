@@ -71,7 +71,6 @@ public class ChatActivity extends AppCompatActivity {
         scrollView = findViewById(R.id.scrollView);
         getNode();
         getChatDetail();
-        Toast.makeText(this,idSend+"-"+idReceive,Toast.LENGTH_SHORT).show();
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,5 +170,11 @@ public class ChatActivity extends AppCompatActivity {
         String address = "http://tempuri.org/addChat";
         String action = "addChat";
         SoapObject object = connect.process(list, address, action);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -31,7 +31,8 @@
         <activity android:name=".Activity.ListChatActivity" />
         <activity android:name=".Activity.AccountActivity" />
         <activity android:name=".Activity.ChangePassActivity" />
-        <activity android:name=".Activity.EditAccountActivity"></activity>
+        <activity android:name=".Activity.EditAccountActivity" />
+        <activity android:name=".Activity.ProductActivity" />
     </application>
 
 </manifest>

@@ -96,7 +96,9 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         }
         if(view==btEdit)
         {
+
             Intent intent = new Intent(this, EditAccountActivity.class);
+            finish();
             startActivity(intent);
         }
     }

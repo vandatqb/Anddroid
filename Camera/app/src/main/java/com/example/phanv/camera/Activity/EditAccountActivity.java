@@ -1,5 +1,6 @@
 package com.example.phanv.camera.Activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -256,5 +257,13 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         final int ACTIVITY_SELECT_IMAGE = 1234;
         startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, AccountActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
