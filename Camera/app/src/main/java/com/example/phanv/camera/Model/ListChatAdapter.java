@@ -52,6 +52,8 @@ public class ListChatAdapter extends RecyclerView.Adapter<ListChatAdapter.View> 
         }
         holder.tvName.setText(chat.getName());
         holder.tvId.setText(chat.getId());
+        holder.tvTime.setText(chat.getTime());
+        holder.tvContent.setText(chat.getContent());
     }
 
     @Override
@@ -93,13 +95,17 @@ public class ListChatAdapter extends RecyclerView.Adapter<ListChatAdapter.View> 
         ImageView img;
         TextView tvName;
         TextView tvId;
+        TextView tvContent;
+        TextView tvTime;
 
         @SuppressLint("WrongViewCast")
         public View(android.view.View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.imgListChat);
             tvName = itemView.findViewById(R.id.tvChatName);
-            tvId = itemView.findViewById(R.id.tvChatTime);
+            tvId = itemView.findViewById(R.id.tvIdChat);
+            tvContent = itemView.findViewById(R.id.tvLastChat);
+            tvTime= itemView.findViewById(R.id.tvChatTime);
             itemView.setOnClickListener(new android.view.View.OnClickListener() {
                 @Override
                 public void onClick(android.view.View view) {

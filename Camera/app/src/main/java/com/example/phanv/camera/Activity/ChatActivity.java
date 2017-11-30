@@ -18,7 +18,9 @@ import android.widget.Toast;
 
 import com.example.phanv.camera.Model.Chat;
 import com.example.phanv.camera.Model.ConnectServer;
+import com.example.phanv.camera.Model.Local;
 import com.example.phanv.camera.Model.Property;
+import com.example.phanv.camera.Process.LocalData;
 import com.example.phanv.camera.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -43,7 +45,7 @@ public class ChatActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     String node;
-    String idSend = "11";
+    String idSend;
     String idReceive;
     ConnectServer connect;
 
@@ -53,6 +55,9 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        LocalData data=new LocalData(this);
+        Local local= data.read();
+        idSend=local.getId();
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("id");
         idReceive = bundle.getString("id");
@@ -66,6 +71,7 @@ public class ChatActivity extends AppCompatActivity {
         scrollView = findViewById(R.id.scrollView);
         getNode();
         getChatDetail();
+        Toast.makeText(this,idSend+"-"+idReceive,Toast.LENGTH_SHORT).show();
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,9 +90,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private void getNode() {
         List<Property> list = new ArrayList<>();
-        Property idSend = new Property("idsend", "11");
+        Property idSend1 = new Property("idsend",idSend);
         Property idRec = new Property("idreceive", idReceive);
-        list.add(idSend);
+        list.add(idSend1);
         list.add(idRec);
         String address = "http://tempuri.org/getNode";
         String action = "getNode";
@@ -96,7 +102,9 @@ public class ChatActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Chat chat = dataSnapshot.getValue(Chat.class);
-                    addMessageBox(chat.getContent(),2,chat.getTime());
+                    if(chat!=null){
+                        addMessageBox(chat.getContent(),2,chat.getTime());
+                    }
                 }
 
                 @Override
@@ -109,9 +117,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private void getChatDetail() {
         List<Property> list = new ArrayList<>();
-        Property idSend = new Property("idsend", "11");
+        Property idSend1 = new Property("idsend", idSend);
         Property idRec = new Property("idreceive", idReceive);
-        list.add(idSend);
+        list.add(idSend1);
         list.add(idRec);
         String address = "http://tempuri.org/getChatDetail";
         String action = "getChatDetail";
@@ -119,8 +127,8 @@ public class ChatActivity extends AppCompatActivity {
         for (int i = 0; i < object.getPropertyCount(); i++) {
             SoapObject chat = (SoapObject) object.getProperty(i);
             String content = chat.getProperty("Content").toString();
-            String idSend1 = chat.getProperty("Id_send").toString();
-            int type = idSend1.equals(idReceive) ? 1 : 0;
+            String idSend2 = chat.getProperty("Id_send").toString();
+            int type = idSend2.equals(idReceive) ? 1 : 0;
             String time = chat.getProperty("Time").toString();
             addMessageBox(content, type, time);
         }
@@ -154,10 +162,10 @@ public class ChatActivity extends AppCompatActivity {
 
     private void upMessage(String message) {
         List<Property> list = new ArrayList<>();
-        Property idSend = new Property("idsend", "11");
+        Property idSend1 = new Property("idsend", idSend);
         Property idRec = new Property("idreceive", idReceive);
         Property content = new Property("content", message);
-        list.add(idSend);
+        list.add(idSend1);
         list.add(idRec);
         list.add(content);
         String address = "http://tempuri.org/addChat";

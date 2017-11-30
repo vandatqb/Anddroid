@@ -2,6 +2,7 @@ package com.example.phanv.camera.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,15 +25,19 @@ public class HomeActivity extends AppCompatActivity
     Boolean loged = false;
     ImageView img;
     TextView tvName;
+    Local local;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         localData = new LocalData(this);
-        Local local = localData.read();
-        if (!local.getId().equals("0")){
+        local = localData.read();
+        if (!local.getId().equals("0")) {
             loged = true;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -43,13 +48,6 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        if(loged)
-        {
-            img = findViewById(R.id.imgMenu);
-            tvName = findViewById(R.id.tvNameMenu);
-            Picasso.with(getBaseContext()).load(local.getImgae()).into(img);
-            tvName.setText(local.getFullName()+"("+local.getLoginName()+")");
-        }
     }
 
     @Override
@@ -65,6 +63,22 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home, menu);
+        img = findViewById(R.id.imgMenu);
+        tvName = findViewById(R.id.tvNameMenu);
+
+        if (loged) {
+
+
+            if (local.getImgae().length() > 40) {
+                Picasso.with(getBaseContext()).load(local.getImgae()).into(img);
+            } else {
+                img.setImageResource(R.drawable.img_account);
+            }
+            tvName.setText(local.getFullName() + "(" + local.getLoginName() + ")");
+        } else {
+            //img.setImageResource(R.drawable.img_account);
+            tvName.setText("Bạn chưa đăng nhập");
+        }
         return true;
     }
 
@@ -91,16 +105,19 @@ public class HomeActivity extends AppCompatActivity
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
                 }
+                break;
             }
             case R.id.nav_account: {
                 if (loged) {
-                    Intent intent = new Intent(this,AccountActivity.class);
+                    Intent intent = new Intent(this, AccountActivity.class);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
                 }
+                break;
             }
+
         }
 
 

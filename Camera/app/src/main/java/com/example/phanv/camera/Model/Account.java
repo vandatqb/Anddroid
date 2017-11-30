@@ -15,6 +15,9 @@ public class Account {
     private String tppe;
     private String status;
 
+    public Account() {
+    }
+
     public Account(String idAccount, String loginName, String fullName, String phone, String address, String email, String image, String tppe, String status) {
         this.idAccount = idAccount;
         this.loginName = loginName;

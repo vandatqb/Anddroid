@@ -22,8 +22,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.phanv.camera.Activity.AccountActivity;
 import com.example.phanv.camera.Model.ConnectServer;
-import com.example.phanv.camera.Model.Local;
 import com.example.phanv.camera.Model.Property;
 import com.example.phanv.camera.Process.LocalData;
 import com.example.phanv.camera.R;
@@ -42,6 +42,12 @@ import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 
 public class RegisterFragment extends Fragment implements View.OnClickListener {
+    String loginName;
+    String fullName;
+    String phone;
+    String pass;
+    String email;
+    String address;
     private StorageReference mStorage;
     private ImageView img;
     private Button btRegister;
@@ -87,7 +93,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         edPass = v.findViewById(R.id.edPass);
         edAddress = v.findViewById(R.id.edAddress);
         edEmail = v.findViewById(R.id.edEmail);
-
         return v;
     }
 
@@ -139,7 +144,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     linkImage = taskSnapshot.getDownloadUrl().toString();
                     progressDialog.dismiss();
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    if (register(loginName, fullName, phone, pass, address, email, linkImage)) {
+                        getActivity().finish();
+                        Intent intent = new Intent(getActivity(), AccountActivity.class);
+                        startActivity(intent);
+                    }
                 }
             });
             return true;
@@ -157,20 +166,17 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     private void validData() {
-        String loginName = edLoginName.getText().toString();
-        String fullName = edFullName.getText().toString();
-        String phone = edPhone.getText().toString();
-        String pass = edPass.getText().toString();
-        String email = edEmail.getText().toString();
-        String address = edAddress.getText().toString();
+        loginName = edLoginName.getText().toString();
+        fullName = edFullName.getText().toString();
+        phone = edPhone.getText().toString();
+        pass = edPass.getText().toString();
+        email = edEmail.getText().toString();
+        address = edAddress.getText().toString();
 
         if (loginName.length() > 4 & checkLoginName(loginName).equals("ok") & fullName.length() > 1
                 & phone.length() > 6 & pass.length() > 5 & email.length() > 6 & address.length() > 10) {
             if (setImg == true) {
                 if (upLoadImage()) {
-                    if (register(loginName, fullName, phone, pass, address, email, linkImage)) {
-                        Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
-                    }
                 } else {
                     Toast.makeText(getContext(), "Đã có lỗi xảy ra", Toast.LENGTH_SHORT).show();
                 }
@@ -182,8 +188,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 }
 
             }
-
-
         } else {
             if (loginName.length() < 5) {
                 Toast.makeText(getContext(), "Tên đăng nhập quá ngắn!", Toast.LENGTH_SHORT).show();
@@ -242,25 +246,18 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         final String soap = "http://tempuri.org/addAccount";
         final String operation = "addAccount";
         ArrayList<Property> list = new ArrayList<>();
-
         Property pr = new Property("login_name", loginName);
         list.add(pr);
-
         Property pr1 = new Property("full_name", fullName);
         list.add(pr1);
-
         Property pr2 = new Property("phone", phone);
         list.add(pr2);
-
         Property pr3 = new Property("pass", pass);
         list.add(pr3);
-
         Property pr4 = new Property("address", address);
         list.add(pr4);
-
         Property pr5 = new Property("email", email);
         list.add(pr5);
-
         Property pr6 = new Property("image", image);
         list.add(pr6);
 
@@ -268,7 +265,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         int status = Integer.parseInt(cn.processString(list, soap, operation));
         if (status > 0) {
             localData = new LocalData(getActivity());
-            localData.writeId(status+"");
+            localData.writeId(status + "");
             return true;
         } else {
             return false;
@@ -285,6 +282,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -298,5 +296,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 }
         }
     }
+
     ;
 }

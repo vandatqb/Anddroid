@@ -10,7 +10,9 @@ import android.support.v7.widget.SearchView;
 import com.example.phanv.camera.Model.ConnectServer;
 import com.example.phanv.camera.Model.ListCameraChat;
 import com.example.phanv.camera.Model.ListChatAdapter;
+import com.example.phanv.camera.Model.Local;
 import com.example.phanv.camera.Model.Property;
+import com.example.phanv.camera.Process.LocalData;
 import com.example.phanv.camera.R;
 
 import org.ksoap2.serialization.SoapObject;
@@ -47,7 +49,9 @@ public class ListChatActivity extends AppCompatActivity implements SearchView.On
 
     private void getData() {
         List<Property> list = new ArrayList<>();
-        Property pr = new Property("id", "11");
+        LocalData data= new LocalData(this);
+        Local local = data.read();
+        Property pr = new Property("id", local.getId());
         list.add(pr);
         String soapAddress = "http://tempuri.org/getListChat";
         String action = "getListChat";
@@ -57,7 +61,9 @@ public class ListChatActivity extends AppCompatActivity implements SearchView.On
             String image = obj.getProperty("Image").toString();
             String name = obj.getProperty("Full_name").toString();
             String id = obj.getProperty("Id").toString();
-            ListCameraChat detail = new ListCameraChat(image, name, "s", id);
+            String content = obj.getProperty("Content").toString();
+            String time = obj.getProperty("Time").toString();
+            ListCameraChat detail = new ListCameraChat(image, name, content,time, id);
             mList.add(detail);
         }
     }

@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/imgViewAccount"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_image"
-        />
-
+    android:orientation="vertical"
+    tools:context="com.example.phanv.camera.Activity.ChangePassActivity">
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -21,13 +15,13 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:inputType="textCapCharacters"
-            android:text="Tên đăng nhập" />
+            android:text="Mật khẩu hiện tại" />
 
-        <TextView
-            android:id="@+id/tvLGName"
+        <EditText
+            android:id="@+id/edOldPass"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:maxLength="19" />
 
     </LinearLayout>
@@ -41,50 +35,11 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Tên" />
-
-        <TextView
-            android:id="@+id/tvFullName"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:maxLength="38" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:maxLength="19"
-            android:text="Số điện thoại" />
-
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
             android:maxLength="38"
-            android:text="Email" />
+            android:text="Mật khẩu mới" />
 
-        <TextView
-            android:id="@+id/tvEmail"
+        <EditText
+            android:id="@+id/edNewPass"
             android:layout_width="200dp"
             android:layout_height="wrap_content" />
 
@@ -100,12 +55,25 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:maxLength="38"
-            android:text="Địa chỉ" />
+            android:text="Nhâp lại mật khẩu" />
 
-        <TextView
-            android:id="@+id/tvAddress"
+        <EditText
+            android:id="@+id/edRePass"
             android:layout_width="200dp"
             android:layout_height="wrap_content" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btChangePass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đổi mật khẩu" />
     </LinearLayout>
 </LinearLayout>

@@ -29,7 +29,9 @@
         <activity android:name=".Activity.ChatActivity" />
         <activity android:name=".Activity.DetailCameraActivity" />
         <activity android:name=".Activity.ListChatActivity" />
-        <activity android:name=".Activity.AccountActivity"></activity>
+        <activity android:name=".Activity.AccountActivity" />
+        <activity android:name=".Activity.ChangePassActivity" />
+        <activity android:name=".Activity.EditAccountActivity"></activity>
     </application>
 
 </manifest>

@@ -23,7 +23,7 @@ public class ConnectServer {
         String result = "";
         try {
             SoapObject request = new SoapObject(WSDL_TARGET_NAMESPACE, operation);
-            PropertyInfo pi = new PropertyInfo();
+            PropertyInfo pi;
             for (Property property : list
                     ) {
                 pi = new PropertyInfo();

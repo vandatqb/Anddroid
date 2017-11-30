@@ -1,6 +1,7 @@
 package com.example.phanv.camera.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.phanv.camera.Activity.AccountActivity;
 import com.example.phanv.camera.Model.ConnectServer;
 import com.example.phanv.camera.Model.Local;
 import com.example.phanv.camera.Model.Property;
@@ -55,10 +57,15 @@ public class LoginFragment extends Fragment {
                     if (checkLogin(name, pass) < 0) {
                         Toast.makeText(getContext(), "Đã có lỗi xảy ra", Toast.LENGTH_SHORT).show();
                     } else {
-                        if (checkLogin(name, pass) == 0) {
+                        int id = checkLogin(name, pass);
+                        if (id== 0) {
                             Toast.makeText(getContext(), "Thông tin tài khoản không đúng", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(), "Ok man", Toast.LENGTH_SHORT).show();
+                            local = new LocalData(getActivity());
+                            local.writeId(id+"");
+                            Intent intent = new Intent(getActivity(), AccountActivity.class);
+                            getActivity().finish();
+                            startActivity(intent);
                         }
                     }
                 } else {

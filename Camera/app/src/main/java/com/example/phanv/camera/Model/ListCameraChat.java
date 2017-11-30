@@ -7,7 +7,8 @@ package com.example.phanv.camera.Model;
 public class ListCameraChat {
     private String img;
     private String name;
-    private String other;
+    private String content;
+    private String time;
 
     public String getId() {
         return id;
@@ -35,18 +36,29 @@ public class ListCameraChat {
         this.name = name;
     }
 
-    public String getOther() {
-        return other;
-    }
-
-    public void setOther(String other) {
-        this.other = other;
-    }
-
-    public ListCameraChat(String img, String name, String other, String id) {
+    public ListCameraChat(String img, String name, String content, String time, String id) {
         this.img = img;
         this.name = name;
-        this.other = other;
+        this.content = content;
+        this.time = time;
         this.id = id;
     }
+
+    public String getTime() {
+
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
 }
