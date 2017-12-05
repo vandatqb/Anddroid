@@ -6,13 +6,13 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,11 +20,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.phanv.camera.Model.AccountModel.Account;
-import com.example.phanv.camera.Model.ServerModel.ConnectServer;
-import com.example.phanv.camera.Model.DataLocalModel.Local;
-import com.example.phanv.camera.Model.ServerModel.Property;
 import com.example.phanv.camera.Model.AccountModel.AccountProcess;
+import com.example.phanv.camera.Model.DataLocalModel.Local;
 import com.example.phanv.camera.Model.DataLocalModel.LocalData;
+import com.example.phanv.camera.Model.ServerModel.ConnectServer;
+import com.example.phanv.camera.Model.ServerModel.Property;
 import com.example.phanv.camera.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -82,10 +82,10 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void validData() {
-        String fullName = edFullName.getText().toString();
-        String phone = edPhone.getText().toString();
-        String email = edEmail.getText().toString();
-        String address = edAddress.getText().toString();
+        fullName = edFullName.getText().toString();
+        phone = edPhone.getText().toString();
+        email = edEmail.getText().toString();
+        address = edAddress.getText().toString();
         if (fullName.length() > 1 & phone.length() > 6 & email.length() > 6 & address.length() > 10) {
             if (changeImage == true) {
                 if (upLoadImage()) {

@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btHome = findViewById(R.id.btHome);
         btHome.setOnClickListener(this);
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        finish();
         startActivity(intent);
     }
 
