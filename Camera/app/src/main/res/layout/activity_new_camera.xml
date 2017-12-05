@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.phanv.camera.Activity.NewCamera">
+    tools:context=".View.ProductView.NewCamera">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,7 +16,8 @@
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -61,7 +61,23 @@
                     android:layout_height="wrap_content"></Spinner>
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Quay phim" />
+
+                <Spinner
+                    android:id="@+id/spnVideo"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"></Spinner>
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
@@ -108,7 +124,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:maxLength="38"
-                    android:text="Giá bán" />
+                    android:text="Giá bán(vnđ)" />
 
                 <EditText
                     android:id="@+id/edPrice"
@@ -151,8 +167,25 @@
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
+                    android:id="@+id/imgAddCamera"
                     android:layout_gravity="left"
                     android:src="@drawable/ic_image" />
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/imgAddCamera1"
+                    android:layout_gravity="left"
+                    android:src="@drawable/ic_image"
+                    android:visibility="invisible"
+                    />
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/imgAddCamera2"
+                    android:layout_gravity="left"
+                    android:src="@drawable/ic_image"
+                    android:visibility="invisible"
+                    />
             </LinearLayout>
 
             <LinearLayout

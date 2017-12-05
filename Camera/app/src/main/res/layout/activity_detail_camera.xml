@@ -6,7 +6,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.phanv.camera.Activity.DetailCameraActivity">
+    tools:context=".View.ProductView.DetailCameraActivity">
 
     <TextView
         android:layout_width="wrap_content"

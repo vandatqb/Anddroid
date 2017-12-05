@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.phanv.camera"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -17,9 +17,23 @@ android {
         }
     }
     buildToolsVersion '26.0.2'
+    productFlavors {
+    }
 }
+//load anh
+repositories {
+    maven { url 'https://repo.commonsware.com.s3.amazonaws.com' }
+    maven { url 'https://jitpack.io' }
+    maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
+}
+//load anh
 
 dependencies {
+    //resize anh
+    compile 'com.github.hkk595:Resizer:v1.3'
+    //load anh
+    compile 'com.github.ParkSangGwon:TedPicker:v1.0.10'
+    //load anh
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:25.4.0'
@@ -36,8 +50,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     implementation files('libs/ksoap2-android-assembly-2.6.0-jar-with-dependencies.jar')
 }
+
 
 
 
