@@ -3,15 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".View.ProductView.AddProductActivity">
-
+    tools:context="com.example.phanv.camera.View.ProductView.EditProductActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="THÊM MÁY ẢNH"
+        android:text="SỬA MÁY ẢNH"
         android:textStyle="bold" />
     <include
         layout="@layout/edit_product"
@@ -25,10 +23,10 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btPost"
+            android:id="@+id/btUpdateProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đăng" />
+            android:text="Sửa" />
     </LinearLayout>
 
     <LinearLayout
@@ -44,4 +42,3 @@
             android:text="@string/other" />
     </LinearLayout>
 </LinearLayout>
-

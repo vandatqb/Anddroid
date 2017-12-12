@@ -13,22 +13,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.phanv.camera.Model.ProductModel.ListProductAccountAdapter;
-import com.example.phanv.camera.Model.DataLocalModel.Local;
+import com.example.phanv.camera.Model.ProductModel.ListProductAdapter;
+import com.example.phanv.camera.Model.ProductModel.ListProductTask;
 import com.example.phanv.camera.Model.ProductModel.Product;
-import com.example.phanv.camera.Model.DataLocalModel.LocalData;
-import com.example.phanv.camera.Model.ProductModel.ProductProcess;
 import com.example.phanv.camera.R;
 
 import java.util.List;
 
-public class ProductFragment extends Fragment implements SearchView.OnQueryTextListener{
-    ListProductAccountAdapter adapter;
-    List<Product> list;
+public class ProductFragment extends Fragment implements SearchView.OnQueryTextListener {
+    ListProductAdapter adapter;
     RecyclerView rcvListProduct;
-    ProductProcess process= new ProductProcess();
     SearchView searchView;
     FloatingActionButton fabAdd;
+    ListProductTask task;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,19 +35,13 @@ public class ProductFragment extends Fragment implements SearchView.OnQueryTextL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_product, container, false);
-        rcvListProduct=view.findViewById(R.id.rcvProduct);
-        searchView=view.findViewById(R.id.svProduct);
+        View view = inflater.inflate(R.layout.fragment_product, container, false);
+        rcvListProduct = view.findViewById(R.id.rcvProduct);
+        searchView = view.findViewById(R.id.svProduct);
         searchView.setOnQueryTextListener(this);
-        fabAdd =view.findViewById(R.id.fab);
-        LocalData data = new LocalData(getActivity());
-        Local local=data.read();
-        list=process.getAllProductWithId(local.getId());
-        adapter=new ListProductAccountAdapter(list,getActivity());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rcvListProduct.setLayoutManager(layoutManager);
-        rcvListProduct.setAdapter(adapter);
+        fabAdd = view.findViewById(R.id.fab);
+        task = new ListProductTask(this);
+        task.execute();
         rcvListProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -64,11 +56,21 @@ public class ProductFragment extends Fragment implements SearchView.OnQueryTextL
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),NewCamera.class);
+                Intent intent = new Intent(getActivity(), AddProductActivity.class);
+                getActivity().finish();
                 startActivity(intent);
             }
         });
         return view;
+    }
+
+    public void loadData(List<Product> list) {
+
+        adapter = new ListProductAdapter(list, this.getActivity(), 1, 1);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rcvListProduct.setLayoutManager(layoutManager);
+        rcvListProduct.setAdapter(adapter);
     }
 
     @Override

@@ -9,10 +9,11 @@ public class Chat {
     private String idReceive;
     private String time;
     private String content;
-    public Chat()
-    {
+
+    public Chat() {
 
     }
+
     public Chat(String idSend, String idReceive, String time, String content) {
         this.idSend = idSend;
         this.idReceive = idReceive;

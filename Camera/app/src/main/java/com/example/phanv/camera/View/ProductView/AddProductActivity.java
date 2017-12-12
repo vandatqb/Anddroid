@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,12 +17,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.phanv.camera.Model.DataLocalModel.Local;
-import com.example.phanv.camera.Model.DataLocalModel.LocalData;
+import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
+import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Model.ProductModel.AddProductTask;
 import com.example.phanv.camera.Model.ProductModel.Maker;
 import com.example.phanv.camera.Model.ProductModel.MakerSpinerAdapter;
 import com.example.phanv.camera.Model.ProductModel.Product;
-import com.example.phanv.camera.Model.ProductModel.ProductProcess;
 import com.example.phanv.camera.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,13 +40,14 @@ import java.util.List;
 
 import me.echodev.resizer.Resizer;
 
-public class NewCamera extends AppCompatActivity implements View.OnClickListener {
+public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
+    AddProductTask task;
+    public Boolean success = false;
     private StorageReference mStorage;
     private ProgressDialog progressDialog;
     private Spinner spnMaker;
     private Spinner spnVideo;
     private Spinner spnStatus;
-    private ProductProcess process = new ProductProcess();
     private String idMaker;
     private String idVideo;
     private String idStatus;
@@ -72,11 +74,14 @@ public class NewCamera extends AppCompatActivity implements View.OnClickListener
     private Uri uri;
     private Uri uri1;
     private Uri uri2;
+    LocalDataProcess dataProcess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_camera);
+        dataProcess = new LocalDataProcess(this);
+        task = new AddProductTask(this);
         mStorage = FirebaseStorage.getInstance().getReference();
         spnMaker = findViewById(R.id.spnMaker);
         spnVideo = findViewById(R.id.spnVideo);
@@ -121,7 +126,7 @@ public class NewCamera extends AppCompatActivity implements View.OnClickListener
     }
 
     private void loadVideoSpinner() {
-        List<Maker> listVideo = process.getListVideo();
+        List<Maker> listVideo = dataProcess.readListVideo();
         final MakerSpinerAdapter adapterVideo = new MakerSpinerAdapter(this, android.R.layout.simple_spinner_item, listVideo);
         spnVideo.setAdapter(adapterVideo);
         spnVideo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -139,7 +144,7 @@ public class NewCamera extends AppCompatActivity implements View.OnClickListener
     }
 
     private void loadMakerSpinner() {
-        List<Maker> listMaker = process.getListMaker();
+        List<Maker> listMaker = dataProcess.readListMaker();
         final MakerSpinerAdapter adapter = new MakerSpinerAdapter(this, android.R.layout.simple_spinner_item, listMaker);
         spnMaker.setAdapter(adapter);
         spnMaker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -170,6 +175,11 @@ public class NewCamera extends AppCompatActivity implements View.OnClickListener
             startActivityForResult(intent, SELECT_FILE);
         }
         if (view == btPost) {
+
+            //an ban phim
+            InputMethodManager imm = (InputMethodManager) this.getApplicationContext().getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
             nameCamera = edName.getText().toString();
             mega = edMega.getText().toString();
             price = edPrice.getText().toString();
@@ -228,7 +238,7 @@ public class NewCamera extends AppCompatActivity implements View.OnClickListener
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             progressDialog.dismiss();
-                            Toast.makeText(NewCamera.this, "Đã có lỗi hay thử lại sau", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddProductActivity.this, "Đã có lỗi hay thử lại sau", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -252,7 +262,7 @@ public class NewCamera extends AppCompatActivity implements View.OnClickListener
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             progressDialog.dismiss();
-                            Toast.makeText(NewCamera.this, "Đã có lỗi hay thử lại sau", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddProductActivity.this, "Đã có lỗi hay thử lại sau", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -276,11 +286,12 @@ public class NewCamera extends AppCompatActivity implements View.OnClickListener
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             progressDialog.dismiss();
-                            Toast.makeText(NewCamera.this, "Đã có lỗi hay thử lại sau", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddProductActivity.this, "Đã có lỗi hay thử lại sau", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
                             linkImage2 = taskSnapshot.getDownloadUrl().toString();
                             numberOk++;
                             if (numberOk == number) {
@@ -297,19 +308,23 @@ public class NewCamera extends AppCompatActivity implements View.OnClickListener
     }
 
     private void addProduct() {
-        progressDialog.dismiss();
-        LocalData data = new LocalData(this);
-        Local local = data.read();
-        Product product = new Product("1", local.getId(), nameCamera, idMaker, "aaa",
+        LocalDataProcess data = new LocalDataProcess(this);
+        AccountInformation accountInformation = data.read();
+        Product product = new Product("1", accountInformation.getId(), nameCamera, idMaker, "aaa",
                 idStatus, mega, idVideo, "nnnn", access, price, "aa", "0", linkImage, linkImage1, linkImage2, description);
-        if (process.addProduct(product, local.getId())) {
-            Intent intent = new Intent(this,ProductActivity.class);
+        task.execute(product);
+    }
+
+    public void addSuccess() {
+        if (success) {
+            Intent intent = new Intent(this, ProductActivity.class);
             finish();
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Đã có lỗi xảy ra", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Đã có lỗi xảy ra ", Toast.LENGTH_SHORT).show();
         }
     }
+
     private Bitmap resizeBitmap(Uri u) {
         Bitmap result = null;
         try {

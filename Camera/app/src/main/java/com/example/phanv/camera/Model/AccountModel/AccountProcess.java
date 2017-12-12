@@ -1,5 +1,6 @@
 package com.example.phanv.camera.Model.AccountModel;
 
+import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
 import com.example.phanv.camera.Model.ServerModel.ConnectServer;
 import com.example.phanv.camera.Model.ServerModel.Property;
 
@@ -56,5 +57,49 @@ public class AccountProcess {
             result = -1;
         }
         return result;
+    }
+
+    public int updateInfor(String id, String fullName, String phone, String address, String email, String linkDown) {
+        int result;
+        List<Property> list = new ArrayList<>();
+        Property prId = new Property("id", id);
+        Property prFullName = new Property("fullName", fullName);
+        Property prPhone = new Property("phone", phone);
+        Property prAddress = new Property("address", address);
+        Property prEmail = new Property("email", email);
+        Property prImage = new Property("image", linkDown);
+        list.add(prId);
+        list.add(prFullName);
+        list.add(prPhone);
+        list.add(prAddress);
+        list.add(prEmail);
+        list.add(prImage);
+        String add = "http://tempuri.org/updateAccountInfor";
+        String action = "updateAccountInfor";
+        try {
+            result = Integer.parseInt(connect.processString(list, add, action));
+        } catch (Exception e) {
+            result = -1;
+        }
+        return result;
+    }
+    public int checkLogin(String name, String pass) {
+        List<Property> list = new ArrayList<>();
+        Property loginName = new Property("loginName", name);
+        Property password = new Property("pass", pass);
+        list.add(loginName);
+        list.add(password);
+        String address = "http://tempuri.org/checkLogin";
+        String action = "checkLogin";
+        String id = connect.processString(list, address, action);
+        if (id.equals("er")) {
+            return -1;
+        } else {
+            if (id.equals("0")) {
+                return 0;
+            } else {
+                return Integer.parseInt(id);
+            }
+        }
     }
 }

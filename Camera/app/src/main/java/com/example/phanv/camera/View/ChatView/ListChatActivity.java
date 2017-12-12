@@ -6,25 +6,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 
+import com.example.phanv.camera.Model.ChatModel.GetListChatTask;
 import com.example.phanv.camera.Model.ChatModel.ListCameraChat;
 import com.example.phanv.camera.Model.ChatModel.ListChatAdapter;
-import com.example.phanv.camera.Model.DataLocalModel.Local;
-import com.example.phanv.camera.Model.DataLocalModel.LocalData;
-import com.example.phanv.camera.Model.ServerModel.ConnectServer;
-import com.example.phanv.camera.Model.ServerModel.Property;
 import com.example.phanv.camera.R;
 
-import org.ksoap2.serialization.SoapObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListChatActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     RecyclerView mRecyclerView;
     ListChatAdapter mAdapter;
-    List<ListCameraChat> mList;
-    ConnectServer connect;
     SearchView svChat;
+    GetListChatTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,45 +26,20 @@ public class ListChatActivity extends AppCompatActivity implements SearchView.On
 
 //        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 //        StrictMode.setThreadPolicy(policy);
-
-
-        mList = new ArrayList<>();
-        connect = new ConnectServer();
         mRecyclerView = findViewById(R.id.rcvListChat);
         svChat = findViewById(R.id.searchListChat);
         svChat.setOnQueryTextListener(this);
-        getData();
-        mAdapter = new ListChatAdapter(mList, this);
+        task = new GetListChatTask(this);
+        task.execute();
+    }
+
+    public void loadData(List<ListCameraChat> list) {
+        mAdapter = new ListChatAdapter(list, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private void getData() {
-        List<Property> list = new ArrayList<>();
-        LocalData data = new LocalData(this);
-        Local local = data.read();
-        Property pr = new Property("id", local.getId());
-        list.add(pr);
-        String soapAddress = "http://tempuri.org/getListChat";
-        String action = "getListChat";
-        SoapObject object = connect.process(list, soapAddress, action);
-        if(object!=null)
-        {
-            for (int i = 0; i < object.getPropertyCount(); i++) {
-                SoapObject obj = (SoapObject) object.getProperty(i);
-                String image = obj.getProperty("Image").toString();
-                String name = obj.getProperty("Full_name").toString();
-                String id = obj.getProperty("Id").toString();
-                String content = obj.getProperty("Content").toString();
-                String time = obj.getProperty("Time").toString();
-                ListCameraChat detail = new ListCameraChat(image, name, content, time, id);
-                mList.add(detail);
-            }
-        }
-
     }
 
     @Override

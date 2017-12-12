@@ -34,6 +34,10 @@ dependencies {
     //load anh
     compile 'com.github.ParkSangGwon:TedPicker:v1.0.10'
     //load anh
+
+    //gson save list object to share referencese
+    compile 'com.google.code.gson:gson:2.8.2'
+    //
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:25.4.0'

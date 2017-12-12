@@ -4,7 +4,7 @@ package com.example.phanv.camera.Model.DataLocalModel;
  * Created by phanv on 28-Nov-17.
  */
 
-public class Local {
+public class AccountInformation {
     private String id;
     private String loginName;
     private String fullName;
@@ -42,7 +42,7 @@ public class Local {
         this.imgae = imgae;
     }
 
-    public Local(String id, String loginName, String fullName, String imgae) {
+    public AccountInformation(String id, String loginName, String fullName, String imgae) {
         this.id = id;
         this.loginName = loginName;
         this.fullName = fullName;

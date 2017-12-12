@@ -79,7 +79,6 @@ public class ListChatAdapter extends RecyclerView.Adapter<ListChatAdapter.View> 
                     }
                     data = listResult;
                 }
-
                 FilterResults results = new FilterResults();
                 results.values = data;
                 return results;

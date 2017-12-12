@@ -1,25 +1,22 @@
 package com.example.phanv.camera.View.AccontView;
 
-import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.phanv.camera.Model.DataLocalModel.Local;
-import com.example.phanv.camera.Model.AccountModel.AccountProcess;
-import com.example.phanv.camera.Model.DataLocalModel.LocalData;
+import com.example.phanv.camera.Model.AccountModel.ChangePassTask;
 import com.example.phanv.camera.R;
 
-public class ChangePassActivity extends AppCompatActivity {
+public class ChangePassActivity extends AppCompatActivity implements View.OnClickListener {
     EditText edOldPass;
     EditText edNewPass;
     EditText edRePass;
     Button btChange;
-    AccountProcess process= new AccountProcess();
-    Activity activity;
+    ChangePassTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,39 +26,49 @@ public class ChangePassActivity extends AppCompatActivity {
         edNewPass = findViewById(R.id.edNewPass);
         edRePass = findViewById(R.id.edRePass);
         btChange = findViewById(R.id.btChangePass);
-        activity = this;
-        btChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String old = edOldPass.getText().toString();
-                String newPass = edNewPass.getText().toString();
-                String rePass = edRePass.getText().toString();
-                if (old.length() > 5 & newPass.length() > 5 & rePass.length() > 5 & newPass.equals(rePass)) {
-                    LocalData data = new LocalData(activity);
-                    Local local = data.read();
-                    try {
-                        int result = process.upPass(local.getId(), old, newPass);
-
-                        if (result < 0) {
-                            Toast.makeText(activity, "Đã có lỗi xảy ra", Toast.LENGTH_SHORT).show();
-                        }
-                        if (result == 0) {
-                            Toast.makeText(activity, "Thông tin không chính xác", Toast.LENGTH_SHORT).show();
-                        }
-                        if (result > 0) {
-                            Toast.makeText(activity, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (Exception e) {
-                        Toast.makeText(activity, "Đã có lỗi xảy ra", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            };
-        });
+        task = new ChangePassTask(this);
+        btChange.setOnClickListener(this);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == btChange) {
+            //an ban phim
+            InputMethodManager imm = (InputMethodManager) this.getApplicationContext().getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+            String old = edOldPass.getText().toString();
+            String newPass = edNewPass.getText().toString();
+            String rePass = edRePass.getText().toString();
+            if (old.length() > 5 & newPass.length() > 5 & rePass.length() > 5 & newPass.equals(rePass)) {
+                task.execute(old, newPass);
+            } else {
+                if (old.length() < 5) {
+                    Toast.makeText(ChangePassActivity.this, "Mật khẩu cũ quá ngắn", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (newPass.length() < 5) {
+                        Toast.makeText(ChangePassActivity.this, "Mật khẩu mới quá ngắn", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (newPass.equals(old)) {
+                            Toast.makeText(ChangePassActivity.this, "Mật khẩu mới không trùng nhau", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void result(int result) {
+        if (result > 0) {
+            Toast.makeText(this, "Đổi thành công", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Đổi không thành công", Toast.LENGTH_LONG).show();
+        }
     }
 }

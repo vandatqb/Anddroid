@@ -7,21 +7,19 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.phanv.camera.Model.DataLocalModel.LocalData;
+import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
 import com.example.phanv.camera.Model.ServerModel.ConnectServer;
 import com.example.phanv.camera.Model.ServerModel.Property;
 import com.example.phanv.camera.R;
@@ -30,11 +28,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
+import com.gun0912.tedpicker.Config;
+import com.gun0912.tedpicker.ImagePickerActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import me.echodev.resizer.Resizer;
@@ -64,7 +62,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     ConnectServer cn = new ConnectServer();
     private String linkImage = "";
     Boolean setImg = false;
-    LocalData localData;
+    LocalDataProcess localDataProcess;
 
     public RegisterFragment() {
     }
@@ -78,12 +76,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_register, container, false);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
 
         mStorage = FirebaseStorage.getInstance().getReference();
 
-        img = v.findViewById(R.id.imgAccount);
+        img = v.findViewById(R.id.imgEditAccount);
         btRegister = v.findViewById(R.id.btRegister);
         img.setOnClickListener(this);
         btRegister.setOnClickListener(this);
@@ -120,6 +118,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             }
         }
         if (view == btRegister) {
+            //an ban phim
+            InputMethodManager imm = (InputMethodManager) this.getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             validData();
         }
     }
@@ -160,10 +161,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     private void openGallery() {
-        Intent i = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        final int ACTIVITY_SELECT_IMAGE = 1234;
-        startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
+        Config config = new Config();
+        config.setSelectionMin(1);
+        config.setSelectionLimit(1);
+
+        ImagePickerActivity.setConfig(config);
+
+        Intent intent = new Intent(getActivity(), ImagePickerActivity.class);
+        startActivityForResult(intent, 1234);
     }
 
     private void validData() {
@@ -228,18 +233,23 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     private String checkLoginName(String loginName) {
+        progressDialog.setMessage("Đang kiểm tra dữ liệu");
+        progressDialog.show();
         ArrayList<Property> list = new ArrayList<>();
         String soap = "http://tempuri.org/checkAccount";
         String operation = "checkAccount";
         Property property = new Property("loginName", loginName);
         list.add(property);
-        if (cn.processString(list, soap, operation).equals("true")) {
+        String result = cn.processString(list, soap, operation);
+        progressDialog.dismiss();
+        if (result.equals("true")) {
             return "notok";
         } else {
-            if (cn.processString(list, soap, operation).equals("false")) {
+            if (result.equals("false")) {
                 return "ok";
             } else return "er";
         }
+
     }
 
     private boolean register(String loginName, String fullName, String phone, String pass, String address, String email, String image) {
@@ -264,8 +274,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         ConnectServer cn = new ConnectServer();
         int status = Integer.parseInt(cn.processString(list, soap, operation));
         if (status > 0) {
-            localData = new LocalData(getActivity());
-            localData.writeId(status + "");
+            localDataProcess = new LocalDataProcess(getActivity());
+            localDataProcess.writeId(status + "");
             return true;
         } else {
             return false;
@@ -276,7 +286,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 123) {
-            Log.d("Dulieu", "chay");
             if (checkSelfPermission(getContext(), "android.permission.READ_EXTERNAL_STORAGE") == PackageManager.PERMISSION_GRANTED)
                 openGallery();
         }
@@ -289,9 +298,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         switch (requestCode) {
             case 1234:
                 if (resultCode == RESULT_OK) {
+                    ArrayList<Uri> list = data.getParcelableArrayListExtra(ImagePickerActivity.EXTRA_IMAGE_URIS);
+                    uriFile = list.get(0);
+                    img.setImageURI(uriFile);
                     setImg = true;
-                    uriFile = data.getData();
-                    Picasso.with(getContext()).load(uriFile).into(img);
                 } else {
                     setImg = false;
                 }
@@ -308,7 +318,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     .setSourceImage(new File(uriFile.getPath()))
                     .getResizedBitmap();
         } catch (Exception e) {
-            Toast.makeText(getContext(),"Lõi e"+e.toString(),Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
         return result;

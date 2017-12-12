@@ -7,37 +7,38 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.phanv.camera.Model.AccountModel.Account;
-import com.example.phanv.camera.Model.AccountModel.AccountProcess;
-import com.example.phanv.camera.Model.DataLocalModel.Local;
-import com.example.phanv.camera.Model.DataLocalModel.LocalData;
-import com.example.phanv.camera.Model.ServerModel.ConnectServer;
-import com.example.phanv.camera.Model.ServerModel.Property;
+import com.example.phanv.camera.Model.AccountModel.UpdateAccountTask;
 import com.example.phanv.camera.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.gun0912.tedpicker.Config;
+import com.gun0912.tedpicker.ImagePickerActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class EditAccountActivity extends AppCompatActivity implements View.OnClickListener {
+    ProgressDialog dialog;
+    UpdateAccountTask task;
+    Account account = null;
     String fullName;
     String phone;
     String email;
@@ -50,22 +51,15 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
     EditText edPass;
     EditText edLoginName;
     Button btUpdate;
-    AccountProcess process = new AccountProcess();
     ImageView img;
     Boolean changeImage = false;
     Uri linkImage;
     String linkDown;
-    String id;
-    ProgressDialog progressDialog;
-    ConnectServer connect = new ConnectServer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        progressDialog = new ProgressDialog(this);
         edAddress = findViewById(R.id.edAddress);
         edEmail = findViewById(R.id.edEmail);
         edFullName = findViewById(R.id.edFullName);
@@ -75,10 +69,12 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
         edLoginName.setFocusable(false);
         edPass.setFocusable(false);
         btUpdate = findViewById(R.id.btUpdateAccount);
-        img = findViewById(R.id.imgAccount);
+        img = findViewById(R.id.imgEditAccount);
         img.setOnClickListener(this);
         btUpdate.setOnClickListener(this);
+        task = new UpdateAccountTask(this);
         loadInformation();
+        dialog = new ProgressDialog(this);
     }
 
     private void validData() {
@@ -89,16 +85,12 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
         if (fullName.length() > 1 & phone.length() > 6 & email.length() > 6 & address.length() > 10) {
             if (changeImage == true) {
                 if (upLoadImage()) {
-
                 } else {
                     Toast.makeText(getApplicationContext(), "Đã có lỗi xảy ra", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                if (updateInfor(fullName, phone, address, email) > 0) {
-                    Toast.makeText(getApplicationContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Đã có lỗi xảy ra", Toast.LENGTH_SHORT).show();
-                }
+                account = new Account("1", "d", fullName, phone, address, email, "default", "1", "1");
+                task.execute(account);
             }
         } else {
             if (fullName.length() < 2) {
@@ -125,8 +117,8 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
     }
 
     private boolean upLoadImage() {
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+        dialog.setMessage("Đang up ảnh");
+        dialog.show();
         if (linkImage != null) {
             try {
                 img.setDrawingCacheEnabled(true);
@@ -146,13 +138,10 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        progressDialog.dismiss();
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                        dialog.dismiss();
                         linkDown = taskSnapshot.getDownloadUrl().toString();
-                        if (updateInfor(fullName, phone, address, email) > 0) {
-                            Toast.makeText(getApplicationContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                        }
+                        account = new Account("1", "d", fullName, phone, address, email, linkDown, "1", "1");
+                        task.execute(account);
                     }
                 });
                 return true;
@@ -162,53 +151,30 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
             }
         }
         return false;
-
-    }
-
-    private int updateInfor(String fullName, String phone, String address, String email) {
-        int result;
-        List<Property> list = new ArrayList<>();
-        Property prId = new Property("id", id);
-        Property prFullName = new Property("fullName", fullName);
-        Property prPhone = new Property("phone", phone);
-        Property prAddress = new Property("address", address);
-        Property prEmail = new Property("email", email);
-        Property prImage = new Property("image", linkDown);
-        list.add(prId);
-        list.add(prFullName);
-        list.add(prPhone);
-        list.add(prAddress);
-        list.add(prEmail);
-        list.add(prImage);
-        String add = "http://tempuri.org/updateAccountInfor";
-        String action = "updateAccountInfor";
-        try {
-            result = Integer.parseInt(connect.processString(list, add, action));
-        } catch (Exception e) {
-            result = -1;
-        }
-        return result;
     }
 
     private void loadInformation() {
-        LocalData data = new LocalData(this);
-        Local local = data.read();
-        Account account = process.getAccountInformation(local.getId());
-        id = local.getId();
-        if (account != null) {
-            edLoginName.setText(account.getLoginName());
-            edPhone.setText(account.getPhone());
-            edEmail.setText(account.getEmail());
-            edAddress.setText(account.getAddress());
-            edFullName.setText(account.getFullName());
-            if (account.getImage().length() > 40) {
-                Picasso.with(this).load(account.getImage()).into(img);
-            } else {
+        try {
+            Intent intent = getIntent();
+            Bundle bundle = intent.getBundleExtra("data");
+            edLoginName.setText(bundle.getString("loginName"));
+            edPhone.setText(bundle.getString("phone"));
+            edEmail.setText(bundle.getString("email"));
+            edAddress.setText(bundle.getString("address"));
+            edFullName.setText(bundle.getString("fullName"));
+            String linkImg = bundle.getString("img");
+            try {
+                if (linkImg.length() > 40) {
+                    Picasso.with(this).load(linkImg).into(img);
+                } else {
+                    img.setImageResource(R.drawable.img_account);
+                }
+            } catch (Exception e) {
                 img.setImageResource(R.drawable.img_account);
             }
-        } else {
-            Toast.makeText(this, "Đã có lỗi xảy ra", Toast.LENGTH_SHORT).show();
-            btUpdate.setFocusable(false);
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Đã có lỗi xảy ra", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -218,9 +184,10 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
         switch (requestCode) {
             case 1234:
                 if (resultCode == RESULT_OK) {
+                    ArrayList<Uri> list = data.getParcelableArrayListExtra(ImagePickerActivity.EXTRA_IMAGE_URIS);
+                    linkImage = list.get(0);
+                    img.setImageURI(linkImage);
                     changeImage = true;
-                    linkImage = data.getData();
-                    Picasso.with(getApplicationContext()).load(linkImage).into(img);
                 } else {
                     changeImage = false;
                 }
@@ -231,15 +198,22 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         if (view == btUpdate) {
+            //an ban phim
+            InputMethodManager imm = (InputMethodManager) this.getApplicationContext().getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             validData();
         }
         if (view == img) {
-            if (checkSelfPermission("android.permission.READ_EXTERNAL_STORAGE") == PackageManager.PERMISSION_GRANTED) {
-                openGallery();
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{"android.permission.READ_EXTERNAL_STORAGE"},
-                        1);
+            try {
+                if (ContextCompat.checkSelfPermission(this, "android.permission.READ_EXTERNAL_STORAGE") == PackageManager.PERMISSION_GRANTED) {
+                    openGallery();
+                } else {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{"android.permission.READ_EXTERNAL_STORAGE"},
+                            1234);
+                }
+            } catch (Exception e) {
+                Log.e("Err : ", e.toString());
             }
         }
     }
@@ -255,10 +229,14 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void openGallery() {
-        Intent i = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        final int ACTIVITY_SELECT_IMAGE = 1234;
-        startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
+        Config config = new Config();
+        config.setSelectionMin(1);
+        config.setSelectionLimit(1);
+
+        ImagePickerActivity.setConfig(config);
+
+        Intent intent = new Intent(this, ImagePickerActivity.class);
+        startActivityForResult(intent, 1234);
     }
 
     @Override
@@ -267,5 +245,11 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
         Intent intent = new Intent(this, AccountActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void updatSuccess() {
+        Intent intent = new Intent(this, AccountActivity.class);
+        finish();
+        startActivity(intent);
     }
 }

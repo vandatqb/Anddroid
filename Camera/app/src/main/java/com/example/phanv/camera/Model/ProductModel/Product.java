@@ -23,6 +23,10 @@ public class Product {
     private String image2;
     private String description;
 
+    public Product() {
+
+    }
+
     public String getDescription() {
         return description;
     }

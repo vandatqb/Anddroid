@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgAccount"
+            android:id="@+id/imgEditAccount"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
@@ -64,6 +64,7 @@
 
         <EditText
             android:id="@+id/edPhone"
+            android:inputType="phone"
             android:layout_width="200dp"
             android:layout_height="wrap_content" />
 
@@ -104,6 +105,7 @@
         <EditText
             android:id="@+id/edEmail"
             android:layout_width="200dp"
+            android:inputType="textEmailAddress"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -118,6 +120,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:maxLength="38"
+            android:inputType="textPostalAddress"
             android:text="Địa chỉ" />
 
         <EditText

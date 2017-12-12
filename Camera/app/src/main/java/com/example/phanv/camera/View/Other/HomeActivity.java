@@ -2,7 +2,6 @@ package com.example.phanv.camera.View.Other;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,8 +13,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.phanv.camera.Model.DataLocalModel.Local;
-import com.example.phanv.camera.Model.DataLocalModel.LocalData;
+import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
+import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
 import com.example.phanv.camera.R;
 import com.example.phanv.camera.View.AccontView.AccountActivity;
 import com.example.phanv.camera.View.AccontView.LoginActivity;
@@ -25,11 +24,11 @@ import com.squareup.picasso.Picasso;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    LocalData localData;
+    LocalDataProcess localDataProcess;
     Boolean loged = false;
     ImageView img;
     TextView tvName;
-    Local local;
+    AccountInformation accountInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +36,9 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        localData = new LocalData(this);
-        local = localData.read();
-        if (!local.getId().equals("0")) {
+        localDataProcess = new LocalDataProcess(this);
+        accountInformation = localDataProcess.read();
+        if (!accountInformation.getId().equals("0")) {
             loged = true;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -70,12 +69,12 @@ public class HomeActivity extends AppCompatActivity
 
         if (loged) {
 
-            if (local.getImgae().length() > 40) {
-                Picasso.with(getBaseContext()).load(local.getImgae()).into(img);
+            if (accountInformation.getImgae().length() > 40) {
+                Picasso.with(getBaseContext()).load(accountInformation.getImgae()).into(img);
             } else {
                 img.setImageResource(R.drawable.img_account);
             }
-            tvName.setText(local.getFullName() + "(" + local.getLoginName() + ")");
+            tvName.setText(accountInformation.getFullName() + "(" + accountInformation.getLoginName() + ")");
         } else {
             //img.setImageResource(R.drawable.img_account);
             tvName.setText("Bạn chưa đăng nhập");

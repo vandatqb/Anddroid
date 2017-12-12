@@ -15,6 +15,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -117,9 +118,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     setImg = false;
                 }
         }
-    }
-
-    ;
+    };
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -134,6 +133,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         }
         if (view == btRegister) {
+            //an ban phim
+            InputMethodManager imm = (InputMethodManager) this.getApplicationContext().getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             validData();
         }
     }
