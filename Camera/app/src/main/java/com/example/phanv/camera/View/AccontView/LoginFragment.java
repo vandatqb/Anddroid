@@ -2,7 +2,6 @@ package com.example.phanv.camera.View.AccontView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +15,10 @@ import com.example.phanv.camera.Model.AccountModel.LoginTask;
 import com.example.phanv.camera.R;
 
 public class LoginFragment extends Fragment {
-    EditText edLoginName;
-    EditText edPassword;
-    Button btLogin;
-    LoginTask task;
+    private EditText edLoginName;
+    private EditText edPassword;
+    private Button btLogin;
+    private LoginTask task;
 
     public LoginFragment() {
     }
@@ -33,8 +32,6 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//        StrictMode.setThreadPolicy(policy);
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
         edLoginName = v.findViewById(R.id.edUserName);
@@ -67,7 +64,7 @@ public class LoginFragment extends Fragment {
 
     public void checkLogin(int i) {
         if (i > 0) {
-            Intent intent = new Intent(getActivity(), AccountActivity.class);
+            Intent intent = new Intent(getActivity(), ViewAccountActivity.class);
             getActivity().finish();
             startActivity(intent);
         } else {

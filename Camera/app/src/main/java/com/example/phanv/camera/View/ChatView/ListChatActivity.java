@@ -8,16 +8,15 @@ import android.support.v7.widget.SearchView;
 
 import com.example.phanv.camera.Model.ChatModel.GetListChatTask;
 import com.example.phanv.camera.Model.ChatModel.ListCameraChat;
-import com.example.phanv.camera.Model.ChatModel.ListChatAdapter;
 import com.example.phanv.camera.R;
 
 import java.util.List;
 
 public class ListChatActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    RecyclerView mRecyclerView;
-    ListChatAdapter mAdapter;
-    SearchView svChat;
-    GetListChatTask task;
+    private RecyclerView mRecyclerView;
+    private ListChatAdapter mAdapter;
+    private SearchView svChat;
+    private GetListChatTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

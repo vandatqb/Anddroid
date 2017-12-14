@@ -14,9 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Model.DataLocalModel.DataLocalProcess;
 import com.example.phanv.camera.R;
-import com.example.phanv.camera.View.AccontView.AccountActivity;
+import com.example.phanv.camera.View.AccontView.ViewAccountActivity;
 import com.example.phanv.camera.View.AccontView.LoginActivity;
 import com.example.phanv.camera.View.ChatView.ListChatActivity;
 import com.example.phanv.camera.View.ProductView.ProductActivity;
@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    LocalDataProcess localDataProcess;
+    DataLocalProcess dataLocalProcess;
     Boolean loged = false;
     ImageView img;
     TextView tvName;
@@ -36,8 +36,8 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        localDataProcess = new LocalDataProcess(this);
-        accountInformation = localDataProcess.read();
+        dataLocalProcess = new DataLocalProcess(this);
+        accountInformation = dataLocalProcess.read();
         if (!accountInformation.getId().equals("0")) {
             loged = true;
         }
@@ -109,7 +109,7 @@ public class HomeActivity extends AppCompatActivity
             }
             case R.id.nav_account: {
                 if (loged) {
-                    Intent intent = new Intent(this, AccountActivity.class);
+                    Intent intent = new Intent(this, ViewAccountActivity.class);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(this, LoginActivity.class);
@@ -117,7 +117,7 @@ public class HomeActivity extends AppCompatActivity
                 }
                 break;
             }
-            case R.id.nav_product:{
+            case R.id.nav_product: {
                 if (loged) {
                     Intent intent = new Intent(this, ProductActivity.class);
                     startActivity(intent);

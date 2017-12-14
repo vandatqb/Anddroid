@@ -3,7 +3,8 @@ package com.example.phanv.camera.Model.ProductModel;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Model.DataLocalModel.DataLocalProcess;
+import com.example.phanv.camera.Presenter.ProductPresenter;
 import com.example.phanv.camera.View.Other.MainActivity;
 
 import java.util.ArrayList;
@@ -15,13 +16,13 @@ import java.util.List;
 
 public class GetListMakerTask extends AsyncTask<Void, List<Maker>, Void> {
     MainActivity activity;
-    LocalDataProcess localProcess;
+    DataLocalProcess localProcess;
     ProgressDialog dialog;
-    ProductProcess process = new ProductProcess();
+    ProductPresenter process = new ProductPresenter();
 
     public GetListMakerTask(MainActivity activity) {
         this.activity = activity;
-        localProcess = new LocalDataProcess(activity);
+        localProcess = new DataLocalProcess(activity);
         dialog = new ProgressDialog(activity);
     }
 

@@ -3,8 +3,8 @@ package com.example.phanv.camera.Model.ProductModel;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Presenter.ProductPresenter;
+import com.example.phanv.camera.View.Other.MainActivity;
 import com.example.phanv.camera.View.ProductView.AddProductActivity;
 
 /**
@@ -13,7 +13,7 @@ import com.example.phanv.camera.View.ProductView.AddProductActivity;
 
 public class AddProductTask extends AsyncTask<Product, Boolean, Void> {
     AddProductActivity activity;
-    ProductProcess process = new ProductProcess();
+    ProductPresenter process = new ProductPresenter();
     ProgressDialog dialog;
 
     public AddProductTask(AddProductActivity activity) {
@@ -30,9 +30,7 @@ public class AddProductTask extends AsyncTask<Product, Boolean, Void> {
 
     @Override
     protected Void doInBackground(Product... values) {
-        LocalDataProcess data = new LocalDataProcess(activity);
-        AccountInformation accountInformation = data.read();
-        Boolean result = process.addProduct(values[0], accountInformation.getId());
+        Boolean result = process.addProduct(values[0], MainActivity.idAccount);
         publishProgress(result);
         return null;
     }

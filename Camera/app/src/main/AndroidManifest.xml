@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.phanv.camera">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -56,7 +57,7 @@
             android:name=".View.ChatView.ListChatActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".View.AccontView.AccountActivity"
+            android:name=".View.AccontView.ViewAccountActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".View.AccontView.ChangePassActivity"
@@ -67,9 +68,16 @@
         <activity
             android:name=".View.ProductView.ProductActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".View.ProductView.ProductInformationActivity" />
-        <activity android:name=".View.ProductView.EditProductActivity" />
-        <activity android:name=".View.ProductView.ViewProductActivity"></activity>
+        <activity
+            android:name=".View.ProductView.ProductInformationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.ProductView.EditProductActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.ProductView.ViewProductActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".View.ProductView.ViewDetailAccountActivity"></activity>
     </application>
 
 </manifest>

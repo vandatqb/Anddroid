@@ -3,9 +3,9 @@ package com.example.phanv.camera.Model.ChatModel;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Presenter.ChatPresenter;
 import com.example.phanv.camera.View.ChatView.ListChatActivity;
+import com.example.phanv.camera.View.Other.MainActivity;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class GetListChatTask extends AsyncTask<Void, List<ListCameraChat>, Void> {
     ListChatActivity activity;
     ProgressDialog dialog;
-    ChatProcess process = new ChatProcess();
+    ChatPresenter process = new ChatPresenter();
 
     public GetListChatTask(ListChatActivity activity) {
         this.activity = activity;
@@ -32,9 +32,7 @@ public class GetListChatTask extends AsyncTask<Void, List<ListCameraChat>, Void>
 
     @Override
     protected Void doInBackground(Void... voids) {
-        LocalDataProcess data = new LocalDataProcess(activity);
-        AccountInformation accountInformation = data.read();
-        List<ListCameraChat> list = process.getListChat(accountInformation.getId());
+        List<ListCameraChat> list = process.getListChat(MainActivity.idAccount);
         publishProgress(list);
 
         return null;

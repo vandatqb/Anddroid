@@ -1,11 +1,8 @@
-package com.example.phanv.camera.Model.AccountModel;
+package com.example.phanv.camera.View.AccontView;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-import com.example.phanv.camera.View.AccontView.LoginFragment;
-import com.example.phanv.camera.View.AccontView.RegisterFragment;
 
 /**
  * Created by phanv on 27-Nov-17.

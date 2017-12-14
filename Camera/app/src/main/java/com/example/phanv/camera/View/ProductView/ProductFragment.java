@@ -13,18 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.phanv.camera.Model.ProductModel.ListProductAdapter;
 import com.example.phanv.camera.Model.ProductModel.ListProductTask;
 import com.example.phanv.camera.Model.ProductModel.Product;
 import com.example.phanv.camera.R;
 
 import java.util.List;
 
-public class ProductFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class ProductFragment extends Fragment implements SearchView.OnQueryTextListener,GetListProductInterface {
     ListProductAdapter adapter;
     RecyclerView rcvListProduct;
     SearchView searchView;
-    FloatingActionButton fabAdd;
     ListProductTask task;
 
     @Override
@@ -39,40 +37,10 @@ public class ProductFragment extends Fragment implements SearchView.OnQueryTextL
         rcvListProduct = view.findViewById(R.id.rcvProduct);
         searchView = view.findViewById(R.id.svProduct);
         searchView.setOnQueryTextListener(this);
-        fabAdd = view.findViewById(R.id.fab);
-        task = new ListProductTask(this);
-        task.execute();
-        rcvListProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0 && fabAdd.getVisibility() == View.VISIBLE) {
-                    fabAdd.hide();
-                } else if (dy < 0 && fabAdd.getVisibility() != View.VISIBLE) {
-                    fabAdd.show();
-                }
-            }
-        });
-        fabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddProductActivity.class);
-                getActivity().finish();
-                startActivity(intent);
-            }
-        });
+        task = new ListProductTask(this,getActivity());
+        task.execute("1");
         return view;
     }
-
-    public void loadData(List<Product> list) {
-
-        adapter = new ListProductAdapter(list, this.getActivity(), 1, 1);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rcvListProduct.setLayoutManager(layoutManager);
-        rcvListProduct.setAdapter(adapter);
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -95,5 +63,14 @@ public class ProductFragment extends Fragment implements SearchView.OnQueryTextL
         adapter.getFilter().filter(newText);
         Toast.makeText(getActivity(), newText, Toast.LENGTH_SHORT).show();
         return false;
+    }
+
+    @Override
+    public void loadSuccess(List<Product> list) {
+        adapter = new ListProductAdapter(list, this.getActivity(), 1, 1);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rcvListProduct.setLayoutManager(layoutManager);
+        rcvListProduct.setAdapter(adapter);
     }
 }

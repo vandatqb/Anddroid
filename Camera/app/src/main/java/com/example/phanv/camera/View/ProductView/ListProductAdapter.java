@@ -1,4 +1,4 @@
-package com.example.phanv.camera.Model.ProductModel;
+package com.example.phanv.camera.View.ProductView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,9 +12,8 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.phanv.camera.Model.ProductModel.Product;
 import com.example.phanv.camera.R;
-import com.example.phanv.camera.View.ProductView.ProductInformationActivity;
-import com.example.phanv.camera.View.ProductView.ViewProductActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -61,11 +60,13 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
             holder.tvPrice.setText(pr.getPrice());
             holder.tvName.setText(pr.getName());
             holder.tvId.setText(pr.getId());
+            holder.tvIdAccount.setText(pr.getIdAccount());
         } else {
             holder.tvTime.setText("Đăng lúc : " + pr.getTime());
             holder.tvPrice.setText("Giá : " + pr.getPrice());
             holder.tvName.setText(pr.getName());
             holder.tvId.setText(pr.getId());
+            holder.tvIdAccount.setText(pr.getIdAccount());
             if (pr.getStatus().equals("1")) {
                 holder.tvStatus.setText(" - Đã duyệt");
             } else {
@@ -117,6 +118,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         TextView tvStatus;
         TextView tvTime;
         TextView tvId;
+        TextView tvIdAccount;
 
         public ViewProductAccount(View itemView) {
             super(itemView);
@@ -125,6 +127,8 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
                 tvName = itemView.findViewById(R.id.tvNameProductHorizontal);
                 tvPrice = itemView.findViewById(R.id.tvPriceProductHorizontal);
                 tvId = itemView.findViewById(R.id.tvIdProductHorizontal);
+                tvIdAccount = itemView.findViewById(R.id.tvIdAccountHorizontal);
+
             } else {
                 img = itemView.findViewById(R.id.imgListProductId);
                 tvName = itemView.findViewById(R.id.tvListProductName);
@@ -132,6 +136,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
                 tvStatus = itemView.findViewById(R.id.tvListproductStatus);
                 tvTime = itemView.findViewById(R.id.tvListProductTime);
                 tvId = itemView.findViewById(R.id.tvListProductId);
+                tvIdAccount = itemView.findViewById(R.id.tvListProductIdAccount);
             }
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -139,9 +144,11 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
                     bundle.putString("id", tvId.getText().toString());
+
                     Intent intent;
                     if (page == 0) {
                         intent = new Intent(activity, ViewProductActivity.class);
+                        bundle.putString("idAccount", tvIdAccount.getText().toString());
                     } else {
                         intent = new Intent(activity, ProductInformationActivity.class);
                         activity.finish();

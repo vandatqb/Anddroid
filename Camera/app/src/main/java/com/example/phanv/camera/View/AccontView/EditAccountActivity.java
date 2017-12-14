@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.phanv.camera.Model.AccountModel.Account;
 import com.example.phanv.camera.Model.AccountModel.UpdateAccountTask;
 import com.example.phanv.camera.R;
+import com.example.phanv.camera.View.Other.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -36,25 +37,25 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class EditAccountActivity extends AppCompatActivity implements View.OnClickListener {
-    ProgressDialog dialog;
-    UpdateAccountTask task;
-    Account account = null;
-    String fullName;
-    String phone;
-    String email;
-    String address;
+    private ProgressDialog dialog;
+    private UpdateAccountTask task;
+    private Account account = null;
+    private String fullName;
+    private String phone;
+    private String email;
+    private String address;
     private StorageReference mStorage;
-    EditText edFullName;
-    EditText edPhone;
-    EditText edEmail;
-    EditText edAddress;
-    EditText edPass;
-    EditText edLoginName;
-    Button btUpdate;
-    ImageView img;
-    Boolean changeImage = false;
-    Uri linkImage;
-    String linkDown;
+    private EditText edFullName;
+    private EditText edPhone;
+    private EditText edEmail;
+    private EditText edAddress;
+    private EditText edPass;
+    private EditText edLoginName;
+    private Button btUpdate;
+    private ImageView img;
+    private Boolean changeImage = false;
+    private Uri linkImage;
+    private String linkDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +141,7 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         dialog.dismiss();
                         linkDown = taskSnapshot.getDownloadUrl().toString();
-                        account = new Account("1", "d", fullName, phone, address, email, linkDown, "1", "1");
+                        account = new Account(MainActivity.idAccount, "d", fullName, phone, address, email, linkDown, "1", "1");
                         task.execute(account);
                     }
                 });
@@ -242,13 +243,13 @@ public class EditAccountActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this, AccountActivity.class);
+        Intent intent = new Intent(this, ViewAccountActivity.class);
         startActivity(intent);
         finish();
     }
 
     public void updatSuccess() {
-        Intent intent = new Intent(this, AccountActivity.class);
+        Intent intent = new Intent(this, ViewAccountActivity.class);
         finish();
         startActivity(intent);
     }

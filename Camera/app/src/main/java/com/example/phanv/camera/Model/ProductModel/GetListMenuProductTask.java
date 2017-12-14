@@ -2,18 +2,19 @@ package com.example.phanv.camera.Model.ProductModel;
 
 import android.os.AsyncTask;
 
+import com.example.phanv.camera.Presenter.ProductPresenter;
 import com.example.phanv.camera.View.Other.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class GetListMenuProduct extends AsyncTask<Integer, List<Product>, List<Product>> {
-    ProductProcess process = new ProductProcess();
+public class GetListMenuProductTask extends AsyncTask<Integer, List<Product>, List<Product>> {
+    ProductPresenter process = new ProductPresenter();
     int type = 0;
     MainActivity activity;
 
-    public GetListMenuProduct(MainActivity activity, int type) {
+    public GetListMenuProductTask(MainActivity activity, int type) {
         this.activity = activity;
         this.type = type;
     }
@@ -31,6 +32,9 @@ public class GetListMenuProduct extends AsyncTask<Integer, List<Product>, List<P
         if (values[0] == 2) {
             list = process.getTopCanonProduct();
         }
+        if (values[0] == 3) {
+            list = process.getTopUnderTenMillion();
+        }
         return list;
     }
 
@@ -44,6 +48,9 @@ public class GetListMenuProduct extends AsyncTask<Integer, List<Product>, List<P
         }
         if (type == 2) {
             activity.loadCanonProduct(list);
+        }
+        if (type == 3) {
+            activity.loadListUnderTenMillion(list);
         }
         super.onPostExecute(list);
     }

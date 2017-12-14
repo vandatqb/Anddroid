@@ -1,4 +1,4 @@
-package com.example.phanv.camera.Model.ProductModel;
+package com.example.phanv.camera.View.ProductView;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.example.phanv.camera.Model.ProductModel.Maker;
 
 import java.util.List;
 
@@ -17,11 +19,11 @@ import java.util.List;
 public class MakerSpinerAdapter extends ArrayAdapter<Maker> {
     private Context context;
     private List<Maker> makers;
-    public MakerSpinerAdapter(Context context, int resource, List<Maker> makers)
-    {
-        super(context,resource,makers);
-        this.context=context;
-        this.makers=makers;
+
+    public MakerSpinerAdapter(Context context, int resource, List<Maker> makers) {
+        super(context, resource, makers);
+        this.context = context;
+        this.makers = makers;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class MakerSpinerAdapter extends ArrayAdapter<Maker> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        TextView   tvMaker = new TextView(context);
+        TextView tvMaker = new TextView(context);
         tvMaker.setText(makers.get(position).getNameMaker());
         return tvMaker;
     }

@@ -1,11 +1,8 @@
-package com.example.phanv.camera.Model.ProductModel;
+package com.example.phanv.camera.View.ProductView;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-import com.example.phanv.camera.View.ProductView.FavoriteProductFragment;
-import com.example.phanv.camera.View.ProductView.ProductFragment;
 
 /**
  * Created by phanv on 30-Nov-17.
@@ -38,10 +35,10 @@ public class ProducAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         String title = "";
         if (position == 0) {
-            title = "Camera của bạn";
+            title = "Máy ảnh của bạn";
         } else {
             if (position == 1) {
-                title = "Camera yêu thích";
+                title = "Máy ảnh yêu thích";
             }
         }
         return title;

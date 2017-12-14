@@ -18,10 +18,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Model.DataLocalModel.DataLocalProcess;
 import com.example.phanv.camera.Model.ProductModel.AddProductTask;
 import com.example.phanv.camera.Model.ProductModel.Maker;
-import com.example.phanv.camera.Model.ProductModel.MakerSpinerAdapter;
 import com.example.phanv.camera.Model.ProductModel.Product;
 import com.example.phanv.camera.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -74,13 +73,13 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     private Uri uri;
     private Uri uri1;
     private Uri uri2;
-    LocalDataProcess dataProcess;
+    DataLocalProcess dataProcess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_camera);
-        dataProcess = new LocalDataProcess(this);
+        dataProcess = new DataLocalProcess(this);
         task = new AddProductTask(this);
         mStorage = FirebaseStorage.getInstance().getReference();
         spnMaker = findViewById(R.id.spnMaker);
@@ -308,7 +307,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void addProduct() {
-        LocalDataProcess data = new LocalDataProcess(this);
+        DataLocalProcess data = new DataLocalProcess(this);
         AccountInformation accountInformation = data.read();
         Product product = new Product("1", accountInformation.getId(), nameCamera, idMaker, "aaa",
                 idStatus, mega, idVideo, "nnnn", access, price, "aa", "0", linkImage, linkImage1, linkImage2, description);

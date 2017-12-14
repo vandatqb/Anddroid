@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".View.AccontView.AccountActivity">
+    tools:context=".View.AccontView.ViewAccountActivity">
     <TextView
         android:layout_gravity="center"
         android:text="Thông tin tài khoản"

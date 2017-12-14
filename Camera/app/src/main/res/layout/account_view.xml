@@ -22,7 +22,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:inputType="textCapCharacters"
-            android:text="Tên đăng nhập" />
+            android:text="Tên đăng nhập"
+            android:id="@+id/tvViewLGName"/>
 
         <TextView
             android:id="@+id/tvLGName"

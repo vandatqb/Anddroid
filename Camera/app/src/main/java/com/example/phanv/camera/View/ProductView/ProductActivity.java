@@ -2,13 +2,11 @@ package com.example.phanv.camera.View.ProductView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.phanv.camera.Model.ProductModel.ProducAdapter;
 import com.example.phanv.camera.R;
 
 public class ProductActivity extends AppCompatActivity {

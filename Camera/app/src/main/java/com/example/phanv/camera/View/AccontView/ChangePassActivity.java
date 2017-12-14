@@ -12,11 +12,11 @@ import com.example.phanv.camera.Model.AccountModel.ChangePassTask;
 import com.example.phanv.camera.R;
 
 public class ChangePassActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText edOldPass;
-    EditText edNewPass;
-    EditText edRePass;
-    Button btChange;
-    ChangePassTask task;
+    private EditText edOldPass;
+    private EditText edNewPass;
+    private EditText edRePass;
+    private Button btChange;
+    private ChangePassTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

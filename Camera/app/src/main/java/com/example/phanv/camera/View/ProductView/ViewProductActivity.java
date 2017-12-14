@@ -1,7 +1,9 @@
 package com.example.phanv.camera.View.ProductView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,17 +14,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.phanv.camera.Model.AccountModel.Account;
+import com.example.phanv.camera.Model.AccountModel.AccountInforTask;
+import com.example.phanv.camera.Model.AccountModel.AccountInformationInterface;
+import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
+import com.example.phanv.camera.Model.DataLocalModel.DataLocalProcess;
+import com.example.phanv.camera.Model.ProductModel.FavouriteTask;
 import com.example.phanv.camera.Model.ProductModel.GetProductInforTask;
 import com.example.phanv.camera.Model.ProductModel.Product;
 import com.example.phanv.camera.R;
+import com.example.phanv.camera.View.ChatView.ChatActivity;
+import com.example.phanv.camera.View.Other.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewProductActivity extends AppCompatActivity implements EditProductInterface, View.OnClickListener {
+public class ViewProductActivity extends AppCompatActivity implements EditProductInterface, AccountInformationInterface, View.OnClickListener {
     GetProductInforTask taskGetInformation;
+    AccountInforTask taskAccount;
     String idProduct;
     String idAccount;
     int number = 0;
@@ -34,6 +46,14 @@ public class ViewProductActivity extends AppCompatActivity implements EditProduc
     ImageView img1;
     ImageView img2;
     ImageView img;
+    TextView tvName;
+    ImageView imgAccount;
+    ImageView imgCall;
+    ImageView imgMessage;
+    ImageView imgInformation;
+    ImageView imgFavorite;
+    String phone = "";
+    FavouriteTask taskFavourite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +62,42 @@ public class ViewProductActivity extends AppCompatActivity implements EditProduc
         getIntentData();
         taskGetInformation = new GetProductInforTask(this, this);
         taskGetInformation.execute(idProduct);
+        taskAccount = new AccountInforTask(this, this);
+        taskAccount.execute(idAccount);
         activity = this;
         viewPager = findViewById(R.id.vpDetailImage);
+        tvName = findViewById(R.id.tvNameAccount);
+        imgCall = findViewById(R.id.actionCall);
+        imgMessage = findViewById(R.id.actionChat);
+        imgAccount = findViewById(R.id.imgAccountInfor);
+        imgFavorite = findViewById(R.id.actionFavourite);
+        imgInformation = findViewById(R.id.actionView);
+        imgMessage.setOnClickListener(this);
+        imgCall.setOnClickListener(this);
+        imgInformation.setOnClickListener(this);
+        imgFavorite.setOnClickListener(this);
     }
 
     private void getIntentData() {
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("data");
         idProduct = bundle.getString("id");
+        idAccount = bundle.getString("idAccount");
     }
 
     private void setAdapter() {
         adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(positionImage);
+    }
+
+    @Override
+    public void loadSuccess(Account account) {
+        tvName.setText(account.getFullName());
+        phone = account.getPhone();
+        if (account.getImage().length() > 40) {
+            Picasso.with(this).load(account.getImage()).into(imgAccount);
+        }
     }
 
     private class ScreenSlidePagerAdapter extends FragmentPagerAdapter {
@@ -128,6 +170,7 @@ public class ViewProductActivity extends AppCompatActivity implements EditProduc
 
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.imgAddCamera) {
@@ -144,6 +187,37 @@ public class ViewProductActivity extends AppCompatActivity implements EditProduc
             viewPager.setVisibility(View.VISIBLE);
             positionImage = 2;
             setAdapter();
+        }
+        if (view == imgCall) {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+            startActivity(intent);
+        }
+        if (view == imgMessage) {
+            if(MainActivity.loged){
+                if (!idAccount.equals(MainActivity.idAccount)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", idAccount);
+                    Intent intent = new Intent(this, ChatActivity.class);
+                    intent.putExtra("id", bundle);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Bạn không thể nhắn tin cho chính bạn", Toast.LENGTH_LONG).show();
+                }
+            }else {
+                Toast.makeText(activity, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        if (view == imgInformation) {
+            Intent intent = new Intent(this, ViewDetailAccountActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("id", idAccount);
+            intent.putExtra("id", bundle);
+            startActivity(intent);
+        }
+        if (view == imgFavorite) {
+            taskFavourite = new FavouriteTask(this);
+            taskFavourite.execute(idProduct);
         }
     }
 

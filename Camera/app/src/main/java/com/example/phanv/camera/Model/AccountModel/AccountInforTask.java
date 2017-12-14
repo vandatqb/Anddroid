@@ -1,23 +1,27 @@
 package com.example.phanv.camera.Model.AccountModel;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
-import com.example.phanv.camera.View.AccontView.AccountActivity;
+import com.example.phanv.camera.Presenter.AccountPresenter;
+import com.example.phanv.camera.View.Other.MainActivity;
+import com.example.phanv.camera.View.ProductView.ViewDetailAccountActivity;
+import com.example.phanv.camera.View.ProductView.ViewProductActivity;
 
 /**
  * Created by phanv on 06-Dec-17.
  */
 
-public class AccountInforTask extends AsyncTask<Void, Account, Account> {
-    AccountProcess process = new AccountProcess();
-    AccountActivity activity;
+public class AccountInforTask extends AsyncTask<String, Account, Account> {
+    AccountPresenter process = new AccountPresenter();
+    AccountInformationInterface mInterface;
+    Activity activity;
     ProgressDialog dialog;
 
-    public AccountInforTask(AccountActivity activity) {
+    public AccountInforTask(AccountInformationInterface mInterface, Activity activity) {
         this.activity = activity;
+        this.mInterface = mInterface;
         dialog = new ProgressDialog(activity);
     }
 
@@ -29,23 +33,21 @@ public class AccountInforTask extends AsyncTask<Void, Account, Account> {
     }
 
     @Override
-    protected Account doInBackground(Void... idAccount) {
-        LocalDataProcess data = new LocalDataProcess(activity);
-        AccountInformation accountInformation = data.read();
-        Account account = process.getAccountInformation(accountInformation.getId());
-        publishProgress(account);
-        return null;
+    protected Account doInBackground(String... idAccount) {
+        Account account;
+        if (activity instanceof ViewProductActivity || activity instanceof ViewDetailAccountActivity) {
+            account = process.getAccountInformation(idAccount[0]);
+        } else {
+            account = process.getAccountInformation(MainActivity.idAccount);
+            publishProgress(account);
+        }
+        return account;
     }
 
     @Override
-    protected void onProgressUpdate(Account... values) {
-        super.onProgressUpdate(values);
-        activity.viewInformation(values[0]);
-    }
-
-    @Override
-    protected void onPostExecute(Account aVoid) {
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(Account account) {
+        super.onPostExecute(account);
+        mInterface.loadSuccess(account);
         dialog.dismiss();
     }
 }

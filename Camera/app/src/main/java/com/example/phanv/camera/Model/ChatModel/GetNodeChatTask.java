@@ -2,9 +2,9 @@ package com.example.phanv.camera.Model.ChatModel;
 
 import android.os.AsyncTask;
 
-import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Presenter.ChatPresenter;
 import com.example.phanv.camera.View.ChatView.ChatActivity;
+import com.example.phanv.camera.View.Other.MainActivity;
 
 /**
  * Created by phanv on 07-Dec-17.
@@ -12,7 +12,7 @@ import com.example.phanv.camera.View.ChatView.ChatActivity;
 
 public class GetNodeChatTask extends AsyncTask<String, Void, Void> {
     ChatActivity activity;
-    ChatProcess process = new ChatProcess();
+    ChatPresenter process = new ChatPresenter();
 
     public GetNodeChatTask(ChatActivity activity) {
         this.activity = activity;
@@ -20,9 +20,8 @@ public class GetNodeChatTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... values) {
-        LocalDataProcess data = new LocalDataProcess(activity);
-        AccountInformation accountInformation = data.read();
-        String idSend = accountInformation.getId();
+
+        String idSend = MainActivity.idAccount;
         activity.idSend = idSend;
         String idReceive = values[0];
         String node = process.getNode(idSend, idReceive);

@@ -1,6 +1,5 @@
 package com.example.phanv.camera.Model.AccountModel;
 
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
 import com.example.phanv.camera.Model.ServerModel.ConnectServer;
 import com.example.phanv.camera.Model.ServerModel.Property;
 
@@ -83,6 +82,7 @@ public class AccountProcess {
         }
         return result;
     }
+
     public int checkLogin(String name, String pass) {
         List<Property> list = new ArrayList<>();
         Property loginName = new Property("loginName", name);
@@ -100,6 +100,19 @@ public class AccountProcess {
             } else {
                 return Integer.parseInt(id);
             }
+        }
+    }
+    public Boolean chekLoginName(String loginName){
+        ArrayList<Property> list = new ArrayList<>();
+        String soap = "http://tempuri.org/checkAccount";
+        String operation = "checkAccount";
+        Property property = new Property("loginName", loginName);
+        list.add(property);
+        String result = connect.processString(list, soap, operation);
+        if (result.equals("true")) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

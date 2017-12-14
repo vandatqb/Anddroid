@@ -3,17 +3,17 @@ package com.example.phanv.camera.Model.AccountModel;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Presenter.AccountPresenter;
 import com.example.phanv.camera.View.AccontView.ChangePassActivity;
+import com.example.phanv.camera.View.Other.MainActivity;
 
 /**
  * Created by phanv on 06-Dec-17.
  */
 
-public class ChangePassTask extends AsyncTask<String, Integer, Void> {
+public class ChangePassTask extends AsyncTask<String, Integer, Integer> {
     ChangePassActivity activity;
-    AccountProcess process = new AccountProcess();
+    AccountPresenter process = new AccountPresenter();
     ProgressDialog dialog;
 
     public ChangePassTask(ChangePassActivity activity) {
@@ -29,23 +29,17 @@ public class ChangePassTask extends AsyncTask<String, Integer, Void> {
     }
 
     @Override
-    protected Void doInBackground(String... values) {
-        LocalDataProcess data = new LocalDataProcess(activity);
-        AccountInformation accountInformation = data.read();
-        int result = process.upPass(accountInformation.getId(), values[0], values[1]);
+    protected Integer doInBackground(String... values) {
+
+        int result = process.upPass(MainActivity.idAccount, values[0], values[1]);
         publishProgress(result);
-        return null;
+        return result;
     }
 
     @Override
-    protected void onProgressUpdate(Integer... values) {
-        activity.result(values[0]);
-        super.onProgressUpdate(values);
-    }
-
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(Integer values) {
+        super.onPostExecute(values);
+        activity.result(values);
         dialog.dismiss();
     }
 }

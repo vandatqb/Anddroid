@@ -18,10 +18,10 @@ import java.util.List;
  * Created by phanv on 28-Nov-17.
  */
 
-public class LocalDataProcess {
-    Activity activity;
+public class DataLocalProcess {
+    public Activity activity;
 
-    public LocalDataProcess(Activity activity) {
+    public DataLocalProcess(Activity activity) {
         this.activity = activity;
     }
 
@@ -73,8 +73,7 @@ public class LocalDataProcess {
             Type type = new TypeToken<List<Maker>>() {
             }.getType();
             list = gson.fromJson(json, type);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

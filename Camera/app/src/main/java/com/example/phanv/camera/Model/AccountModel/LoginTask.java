@@ -3,7 +3,8 @@ package com.example.phanv.camera.Model.AccountModel;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Model.DataLocalModel.DataLocalProcess;
+import com.example.phanv.camera.Presenter.AccountPresenter;
 import com.example.phanv.camera.View.AccontView.LoginFragment;
 
 /**
@@ -12,7 +13,7 @@ import com.example.phanv.camera.View.AccontView.LoginFragment;
 
 public class LoginTask extends AsyncTask<String, Integer, Integer> {
     LoginFragment fragment;
-    AccountProcess process = new AccountProcess();
+    AccountPresenter process = new AccountPresenter();
     ProgressDialog dialog;
 
     public LoginTask(LoginFragment fragment) {
@@ -32,7 +33,7 @@ public class LoginTask extends AsyncTask<String, Integer, Integer> {
         int result = 0;
         result = process.checkLogin(values[0], values[1]);
         if (result > 0) {
-            LocalDataProcess process = new LocalDataProcess(fragment.getActivity());
+            DataLocalProcess process = new DataLocalProcess(fragment.getActivity());
             process.writeId(result + "");
         }
         return result;

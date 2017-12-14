@@ -1,5 +1,6 @@
 package com.example.phanv.camera.View.Other;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,34 +19,40 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Model.DataLocalModel.DataLocalProcess;
 import com.example.phanv.camera.Model.ProductModel.GetListMakerTask;
-import com.example.phanv.camera.Model.ProductModel.GetListMenuProduct;
-import com.example.phanv.camera.Model.ProductModel.ListProductAdapter;
+import com.example.phanv.camera.Model.ProductModel.GetListMenuProductTask;
 import com.example.phanv.camera.Model.ProductModel.Product;
 import com.example.phanv.camera.R;
-import com.example.phanv.camera.View.AccontView.AccountActivity;
 import com.example.phanv.camera.View.AccontView.LoginActivity;
+import com.example.phanv.camera.View.AccontView.ViewAccountActivity;
 import com.example.phanv.camera.View.ChatView.ListChatActivity;
+import com.example.phanv.camera.View.ProductView.ListProductAdapter;
 import com.example.phanv.camera.View.ProductView.ProductActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    LocalDataProcess localDataProcess;
+    public static String idAccount;
+    public static String loginName;
+    //private DataLocalPresenter presenter;
+    private DataLocalProcess process;
     public static Boolean loged = false;
-    ImageView img;
-    TextView tvName;
-    AccountInformation accountInformation;
-    GetListMakerTask task;
-    RecyclerView rcvNew;
-    RecyclerView rcvNikon;
-    RecyclerView rcvCanon;
-    ListProductAdapter adapter;
-    GetListMenuProduct taskListNew;
-    GetListMenuProduct taskListNikon;
-    GetListMenuProduct taskListCanon;
+    private ImageView img;
+    private TextView tvName;
+    private AccountInformation accountInformation;
+    private GetListMakerTask task;
+    private RecyclerView rcvNew;
+    private RecyclerView rcvNikon;
+    private RecyclerView rcvCanon;
+    private RecyclerView rcvUderTenMillion;
+    private ListProductAdapter adapter;
+    private GetListMenuProductTask taskListNew;
+    private GetListMenuProductTask taskListNikon;
+    private GetListMenuProductTask taskListCanon;
+    private GetListMenuProductTask taskUnderTenMillion;
+    private Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rcvCanon = findViewById(R.id.rcvCanonProduct);
         rcvNew = findViewById(R.id.rcvNewProduct);
         rcvNikon = findViewById(R.id.rcvNikonProduct);
+        rcvUderTenMillion = findViewById(R.id.rcvUnderTenMillion);
+        activity = this;
+        //presenter = new DataLocalPresenter(activity);
         setSupportActionBar(toolbar);
         getListMakerAndVideo();
         getDataLocal();
@@ -78,6 +88,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rcvNikon.setAdapter(adapter);
     }
 
+    public void loadListUnderTenMillion(List<Product> list) {
+        adapter = new ListProductAdapter(list, this, 0, 0);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rcvUderTenMillion.setLayoutManager(layoutManager);
+        rcvUderTenMillion.setAdapter(adapter);
+    }
+
     public void loadCanonProduct(List<Product> list) {
         adapter = new ListProductAdapter(list, this, 0, 0);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -98,9 +116,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void getDataLocal() {
-        localDataProcess = new LocalDataProcess(this);
-        accountInformation = localDataProcess.read();
+        process = new DataLocalProcess(this);
+        accountInformation = process.read();
         if (!accountInformation.getId().equals("0")) {
+            idAccount = accountInformation.getId();
+            loginName=accountInformation.getLoginName();
             loged = true;
         }
     }
@@ -126,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.nav_account: {
                 if (loged) {
-                    Intent intent = new Intent(this, AccountActivity.class);
+                    Intent intent = new Intent(this, ViewAccountActivity.class);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(this, LoginActivity.class);
@@ -185,13 +205,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void load() {
-        taskListNew = new GetListMenuProduct(this, 0);
-        taskListNikon = new GetListMenuProduct(this, 1);
-        taskListCanon = new GetListMenuProduct(this, 2);
+        taskListNew = new GetListMenuProductTask(this, 0);
+        taskListNikon = new GetListMenuProductTask(this, 1);
+        taskListCanon = new GetListMenuProductTask(this, 2);
+        taskUnderTenMillion = new GetListMenuProductTask(this, 3);
         taskListNew.execute(0);
         taskListNikon.execute(1);
         taskListCanon.execute(2);
+        taskUnderTenMillion.execute(3);
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

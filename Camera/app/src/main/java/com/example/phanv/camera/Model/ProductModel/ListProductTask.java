@@ -1,11 +1,13 @@
 package com.example.phanv.camera.Model.ProductModel;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
-import com.example.phanv.camera.View.ProductView.ProductFragment;
+import com.example.phanv.camera.Presenter.ProductPresenter;
+import com.example.phanv.camera.View.Other.MainActivity;
+import com.example.phanv.camera.View.ProductView.GetListProductInterface;
+import com.example.phanv.camera.View.ProductView.ViewDetailAccountActivity;
 
 import java.util.List;
 
@@ -13,29 +15,33 @@ import java.util.List;
  * Created by phanv on 06-Dec-17.
  */
 
-public class ListProductTask extends AsyncTask<Void, List<Product>, List<Product>> {
-    ProductProcess process = new ProductProcess();
-    ProductFragment fragment;
+public class ListProductTask extends AsyncTask<String, List<Product>, List<Product>> {
+    ProductPresenter process = new ProductPresenter();
+    GetListProductInterface mInterface;
+    Activity activity;
     ProgressDialog dialog;
 
-    public ListProductTask(ProductFragment fragment) {
-        this.fragment = fragment;
-        dialog = new ProgressDialog(fragment.getActivity());
+    public ListProductTask(GetListProductInterface mInterface, Activity activity) {
+        this.mInterface = mInterface;
+        this.activity = activity;
+        dialog = new ProgressDialog(activity);
     }
 
     @Override
-    protected List<Product> doInBackground(Void... voids) {
-        LocalDataProcess data = new LocalDataProcess(fragment.getActivity());
-        AccountInformation accountInformation = data.read();
-        List<Product> list = process.getAllProductWithId(accountInformation.getId());
-        publishProgress(list);
-        return null;
-    }
+    protected List<Product> doInBackground(String... values) {
+        List<Product> list;
+        if (activity instanceof ViewDetailAccountActivity) {
+            list = process.getAllProductWithId(values[0]);
+        } else {
+            if (values[0].equals("favorite")) {
+                list = process.getFavouriteProduct(MainActivity.idAccount);
+            } else {
+                list = process.getAllProductWithId(MainActivity.idAccount);
+            }
 
-    @Override
-    protected void onProgressUpdate(List<Product>... values) {
-        fragment.loadData(values[0]);
-        super.onProgressUpdate(values);
+        }
+
+        return list;
     }
 
     @Override
@@ -47,6 +53,7 @@ public class ListProductTask extends AsyncTask<Void, List<Product>, List<Product
 
     @Override
     protected void onPostExecute(List<Product> list) {
+        mInterface.loadSuccess(list);
         dialog.dismiss();
         super.onPostExecute(list);
     }

@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,18 +32,18 @@ import java.util.Calendar;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
-    public String node;
-    LinearLayout layout;
-    RelativeLayout layout_2;
-    ImageView sendButton;
-    EditText messageArea;
-    ScrollView scrollView;
-    FirebaseDatabase database;
-    DatabaseReference reference;
-    public String idSend;
-    public String idReceive;
-    GetNodeChatTask task;
-    GetChatDetailTask taskChat;
+    public   String node;
+    private LinearLayout layout;
+    private RelativeLayout layout_2;
+    private ImageView sendButton;
+    private EditText messageArea;
+    private ScrollView scrollView;
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
+    public   String idSend;
+    private  String idReceive;
+    private GetNodeChatTask task;
+    private GetChatDetailTask taskChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

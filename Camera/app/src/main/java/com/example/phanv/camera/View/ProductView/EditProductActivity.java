@@ -17,10 +17,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Model.DataLocalModel.DataLocalProcess;
 import com.example.phanv.camera.Model.ProductModel.GetProductInforTask;
 import com.example.phanv.camera.Model.ProductModel.Maker;
-import com.example.phanv.camera.Model.ProductModel.MakerSpinerAdapter;
 import com.example.phanv.camera.Model.ProductModel.Product;
 import com.example.phanv.camera.Model.ProductModel.UpdateProducTask;
 import com.example.phanv.camera.R;
@@ -73,7 +72,7 @@ public class EditProductActivity extends AppCompatActivity implements View.OnCli
     private Uri uri;
     private Uri uri1;
     private Uri uri2;
-    LocalDataProcess dataProcess;
+    DataLocalProcess dataProcess;
 
     GetProductInforTask task;
     UpdateProducTask taskUpdate;
@@ -90,7 +89,7 @@ public class EditProductActivity extends AppCompatActivity implements View.OnCli
         progressDialog = new ProgressDialog(this);
         Bundle bundle = intent.getBundleExtra("data");
         id = bundle.getString("id");
-        dataProcess = new LocalDataProcess(this);
+        dataProcess = new DataLocalProcess(this);
 
         mStorage = FirebaseStorage.getInstance().getReference();
         spnMaker = findViewById(R.id.spnMaker);
@@ -234,7 +233,7 @@ public class EditProductActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void editProduct() {
-        LocalDataProcess data = new LocalDataProcess(this);
+        DataLocalProcess data = new DataLocalProcess(this);
         AccountInformation accountInformation = data.read();
         Product product = new Product(id, "111", nameCamera, idMaker, "aaa",
                 idStatus, mega, idVideo, "nnnn", access, price, "aa", "0", linkImage, linkImage1, linkImage2, description);

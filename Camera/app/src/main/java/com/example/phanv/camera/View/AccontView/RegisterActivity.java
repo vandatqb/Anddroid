@@ -118,7 +118,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     setImg = false;
                 }
         }
-    };
+    }
+
+    ;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override

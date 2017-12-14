@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
+import com.example.phanv.camera.Presenter.ProductPresenter;
 import com.example.phanv.camera.View.ProductView.EditProductActivity;
 import com.example.phanv.camera.View.ProductView.EditProductInterface;
 
@@ -23,7 +24,7 @@ public class GetProductInforTask extends AsyncTask<String, Product, Product> {
         dialog = new ProgressDialog(activity);
     }
 
-    ProductProcess process = new ProductProcess();
+    ProductPresenter process = new ProductPresenter();
 
     @Override
     protected void onPreExecute() {
@@ -55,10 +56,5 @@ public class GetProductInforTask extends AsyncTask<String, Product, Product> {
             mInterface.loadSuccess(values);
         }
         super.onPostExecute(values);
-    }
-
-    @Override
-    protected void onProgressUpdate(Product... values) {
-        super.onProgressUpdate(values);
     }
 }

@@ -19,9 +19,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.phanv.camera.Model.DataLocalModel.LocalDataProcess;
+import com.example.phanv.camera.Model.DataLocalModel.DataLocalProcess;
 import com.example.phanv.camera.Model.ServerModel.ConnectServer;
 import com.example.phanv.camera.Model.ServerModel.Property;
+import com.example.phanv.camera.Presenter.SeverPresenter;
 import com.example.phanv.camera.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,12 +43,12 @@ import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 
 public class RegisterFragment extends Fragment implements View.OnClickListener {
-    String loginName;
-    String fullName;
-    String phone;
-    String pass;
-    String email;
-    String address;
+    private String loginName;
+    private String fullName;
+    private String phone;
+    private String pass;
+    private String email;
+    private String address;
     private StorageReference mStorage;
     private ImageView img;
     private Button btRegister;
@@ -59,10 +60,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private EditText edPass;
     private EditText edAddress;
     private EditText edEmail;
-    ConnectServer cn = new ConnectServer();
+    private SeverPresenter cn = new SeverPresenter();
     private String linkImage = "";
-    Boolean setImg = false;
-    LocalDataProcess localDataProcess;
+    private Boolean setImg = false;
+    private DataLocalProcess dataLocalProcess;
 
     public RegisterFragment() {
     }
@@ -147,7 +148,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     progressDialog.dismiss();
                     if (register(loginName, fullName, phone, pass, address, email, linkImage)) {
                         getActivity().finish();
-                        Intent intent = new Intent(getActivity(), AccountActivity.class);
+                        Intent intent = new Intent(getActivity(), ViewAccountActivity.class);
                         startActivity(intent);
                     }
                 }
@@ -274,8 +275,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         ConnectServer cn = new ConnectServer();
         int status = Integer.parseInt(cn.processString(list, soap, operation));
         if (status > 0) {
-            localDataProcess = new LocalDataProcess(getActivity());
-            localDataProcess.writeId(status + "");
+            dataLocalProcess = new DataLocalProcess(getActivity());
+            dataLocalProcess.writeId(status + "");
             return true;
         } else {
             return false;

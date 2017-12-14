@@ -163,7 +163,7 @@ public class Product {
         this.status = status;
     }
 
-    public Product(String id, String idAccount, String name, String idMaker, String nameMaker, String type, String mega, String video, String nameVideo, String addition, String price, String time, String status, String image, String image1, String image2,String description) {
+    public Product(String id, String idAccount, String name, String idMaker, String nameMaker, String type, String mega, String video, String nameVideo, String addition, String price, String time, String status, String image, String image1, String image2, String description) {
         this.id = id;
         this.idAccount = idAccount;
         this.name = name;
@@ -180,6 +180,6 @@ public class Product {
         this.image = image;
         this.image1 = image1;
         this.image2 = image2;
-        this.description =description;
+        this.description = description;
     }
 }

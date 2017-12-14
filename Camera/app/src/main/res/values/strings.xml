@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Camera</string>
+    <string name="app_name">Chợ Máy Ảnh</string>
     <string name="title_activity_home">HomeActivity</string>
 
     <string name="navigation_drawer_open">Mở menu</string>

@@ -2,6 +2,7 @@ package com.example.phanv.camera.Model.ProductModel;
 
 import com.example.phanv.camera.Model.ServerModel.ConnectServer;
 import com.example.phanv.camera.Model.ServerModel.Property;
+import com.example.phanv.camera.Presenter.SeverPresenter;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class ProductProcess {
 
-    ConnectServer connect = new ConnectServer();
+    SeverPresenter connect = new SeverPresenter();
 
     public ProductProcess() {
     }
@@ -329,5 +330,84 @@ public class ProductProcess {
         } else {
             return false;
         }
+    }
+
+    public void addOrRemoveFavourite(String idAccount, String idProduct) {
+        List<Property> list = new ArrayList<>();
+        String address = "http://tempuri.org/addOrRemoveFavourite";
+        String action = "addOrRemoveFavourite";
+        Property id_account = new Property("id_account", idAccount);
+        Property id_Product = new Property("id_product", idProduct);
+        list.add(id_account);
+        list.add(id_Product);
+        connect.process(list, address, action);
+    }
+
+    public List<Product> getTopUnderTenMillion() {
+        List<Product> result = new ArrayList<>();
+        List<Property> list = new ArrayList<>();
+        String address = "http://tempuri.org/getListProductUnderTenMillion";
+        String action = "getListProductUnderTenMillion";
+        SoapObject object = connect.process(list, address, action);
+        if (object != null) {
+            for (int i = 0; i < object.getPropertyCount(); i++) {
+                SoapObject ob = (SoapObject) object.getProperty(i);
+                String idProduct = ob.getProperty("IdProduct").toString();
+                String idAccount = ob.getProperty("IdAccount").toString();
+                String name = ob.getProperty("Name").toString();
+                String nameMaker = ob.getProperty("NameMaker").toString();
+                String idMaker = ob.getProperty("IdMaker").toString();
+                String type = ob.getProperty("Type").toString();
+                String mega = ob.getProperty("Mega").toString();
+                String nameVideo = ob.getProperty("NameVideo").toString();
+                String video = ob.getProperty("IdVideo").toString();
+                String addition = ob.getProperty("Addition").toString();
+                String price = ob.getProperty("Price").toString();
+                String time = ob.getProperty("Time").toString();
+                String status = ob.getProperty("Status").toString();
+                String img = ob.getProperty("Img").toString();
+                String img1 = ob.getProperty("Image").toString();
+                String img2 = ob.getProperty("Image3").toString();
+                String des = ob.getProperty("Description").toString();
+                Product product = new Product(idProduct, idAccount, name, idMaker, nameMaker, type, mega, video, nameVideo, addition, price, time, status, img, img1, img2, des);
+                result.add(product);
+            }
+        }
+        return result;
+    }
+
+    public List<Product> getFavouriteProduct(String id) {
+        List<Product> result = new ArrayList<>();
+        List<Property> list = new ArrayList<>();
+        Property prId = new Property("id", id);
+        list.add(prId);
+        String address = "http://tempuri.org/getListFavouriteProduct";
+        String action = "getListFavouriteProduct";
+        SoapObject object = connect.process(list, address, action);
+        if (object != null) {
+            for (int i = 0; i < object.getPropertyCount(); i++) {
+                SoapObject ob = (SoapObject) object.getProperty(i);
+                String idProduct = ob.getProperty("IdProduct").toString();
+                String idAccount = ob.getProperty("IdAccount").toString();
+                String name = ob.getProperty("Name").toString();
+                String nameMaker = ob.getProperty("NameMaker").toString();
+                String idMaker = ob.getProperty("IdMaker").toString();
+                String type = ob.getProperty("Type").toString();
+                String mega = ob.getProperty("Mega").toString();
+                String nameVideo = ob.getProperty("NameVideo").toString();
+                String video = ob.getProperty("IdVideo").toString();
+                String addition = ob.getProperty("Addition").toString();
+                String price = ob.getProperty("Price").toString();
+                String time = ob.getProperty("Time").toString();
+                String status = ob.getProperty("Status").toString();
+                String img = ob.getProperty("Img").toString();
+                String img1 = ob.getProperty("Image").toString();
+                String img2 = ob.getProperty("Image3").toString();
+                String des = ob.getProperty("Description").toString();
+                Product product = new Product(idProduct, idAccount, name, idMaker, nameMaker, type, mega, video, nameVideo, addition, price, time, status, img, img1, img2, des);
+                result.add(product);
+            }
+        }
+        return result;
     }
 }

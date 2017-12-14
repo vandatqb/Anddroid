@@ -13,7 +13,10 @@
         android:id="@+id/svHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></android.support.v7.widget.SearchView>
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:src="@drawable/home"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -26,7 +29,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Máy ảnh mới" />
+                android:text="Máy ảnh mới"
+                android:paddingLeft="8dp"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:background="@color/pink"
+                android:textColor="#ffffff"
+                />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rcvNewProduct"
@@ -36,7 +45,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Máy ảnh Nikon" />
+                android:paddingLeft="8dp"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:text="Máy ảnh Nikon"
+                android:background="@color/pink"
+                android:textColor="#ffffff"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rcvNikonProduct"
@@ -46,7 +60,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Máy ảnh Canon" />
+                android:text="Máy ảnh Canon"
+                android:paddingLeft="8dp"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:background="@color/pink"
+                android:textColor="#ffffff"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rcvCanonProduct"
@@ -54,13 +73,18 @@
                 android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Máy ảnh Fujifilm" />
+                android:paddingLeft="8dp"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:text="Máy ảnh dưới 10 triệu"
+                android:background="@color/pink"
+                android:textColor="#ffffff"/>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rcvFujifilmProduct"
-                android:layout_width="wrap_content"
+                android:id="@+id/rcvUnderTenMillion"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>

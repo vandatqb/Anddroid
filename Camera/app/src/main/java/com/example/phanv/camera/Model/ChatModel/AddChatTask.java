@@ -2,12 +2,14 @@ package com.example.phanv.camera.Model.ChatModel;
 
 import android.os.AsyncTask;
 
+import com.example.phanv.camera.Presenter.ChatPresenter;
+
 /**
  * Created by phanv on 07-Dec-17.
  */
 
 public class AddChatTask extends AsyncTask<String, Void, Void> {
-    ChatProcess process = new ChatProcess();
+    ChatPresenter process = new ChatPresenter();
 
     @Override
     protected Void doInBackground(String... values) {
