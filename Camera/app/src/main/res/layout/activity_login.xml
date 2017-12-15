@@ -3,13 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".View.AccontView.LoginActivity">
     <android.support.design.widget.TabLayout
-        android:background="#c8c8c9"
+        android:background="@color/pink"
         android:layout_alignParentTop="true"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
+        app:tabSelectedTextColor="@color/custom_txt_whitegray"
+        app:tabTextColor="@color/white"
         android:layout_height="48dp"
         >
 

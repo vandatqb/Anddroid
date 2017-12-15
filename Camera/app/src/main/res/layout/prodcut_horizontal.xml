@@ -29,14 +29,14 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="#d3d3d3"
+            android:textColor="#000000"
             android:gravity="center" />
 
         <TextView
             android:id="@+id/tvPriceProductHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/holo_red_dark"/>
+            android:textColor="@android:color/holo_red_light"/>
 
     </LinearLayout>
 

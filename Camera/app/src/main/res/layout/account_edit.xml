@@ -9,7 +9,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_image"/>
+            android:src="@drawable/img_account"
+            />
 
     <LinearLayout
         android:layout_width="300dp"
@@ -21,6 +22,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:inputType="textCapCharacters"
+            android:textColor="@color/pink"
             android:text="Tên đăng nhập" />
 
         <EditText
@@ -40,6 +42,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/pink"
             android:text="Tên" />
 
         <EditText
@@ -60,7 +63,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:maxLength="19"
-            android:text="Số điện thoại" />
+            android:text="Số điện thoại"
+            android:textColor="@color/pink"/>
 
         <EditText
             android:id="@+id/edPhone"
@@ -79,6 +83,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/pink"
             android:text="Mật khẩu" />
 
         <EditText
@@ -100,7 +105,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:maxLength="38"
-            android:text="Email" />
+            android:text="Email"
+            android:textColor="@color/pink"/>
 
         <EditText
             android:id="@+id/edEmail"
@@ -121,6 +127,7 @@
             android:layout_height="wrap_content"
             android:maxLength="38"
             android:inputType="textPostalAddress"
+            android:textColor="@color/pink"
             android:text="Địa chỉ" />
 
         <EditText

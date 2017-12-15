@@ -2,15 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:layout_gravity="center"
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:text="THÔNG TIN MÁY ẢNH"
-        android:textStyle="bold" />
+        android:paddingLeft="8dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:background="@color/pink"
+        android:textColor="#ffffff"
+        />
+
 
     <LinearLayout
         android:layout_width="300dp"
@@ -22,15 +29,13 @@
             android:id="@+id/imgAddCamera"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_gravity="left"
-            android:src="@drawable/ic_image" />
+            android:layout_gravity="left" />
 
         <ImageView
             android:id="@+id/imgAddCamera1"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="left"
-            android:src="@drawable/ic_image"
             android:visibility="invisible" />
 
         <ImageView
@@ -38,7 +43,6 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="left"
-            android:src="@drawable/ic_image"
             android:visibility="invisible" />
     </LinearLayout>
         <LinearLayout
@@ -56,13 +60,14 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapCharacters"
+                    android:textColor="@color/pink"
                     android:text="Tên máy" />
 
                 <TextView
                     android:id="@+id/tvCameraName"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/pink"
                     android:maxLength="19" />
 
             </LinearLayout>
@@ -76,11 +81,13 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/pink"
                     android:text="Hãng" />
 
                 <TextView
                     android:id="@+id/tvNameMaker"
                     android:layout_width="200dp"
+                    android:textColor="@color/pink"
                     android:layout_height="wrap_content"></TextView>
 
             </LinearLayout>
@@ -94,11 +101,13 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/pink"
                     android:text="Quay phim" />
 
                 <TextView
                     android:id="@+id/tvVideo"
                     android:layout_width="200dp"
+                    android:textColor="@color/pink"
                     android:layout_height="wrap_content"></TextView>
 
             </LinearLayout>
@@ -113,11 +122,13 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:maxLength="38"
+                    android:textColor="@color/pink"
                     android:text="Số điểm ảnh" />
 
                 <TextView
                     android:id="@+id/tvMega"
                     android:layout_width="200dp"
+                    android:textColor="@color/pink"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
             </LinearLayout>
@@ -130,11 +141,13 @@
 
                 <TextView
                     android:layout_width="100dp"
+                    android:textColor="@color/pink"
                     android:layout_height="wrap_content"
                     android:text="Tinhh trạng" />
 
                 <TextView
                     android:id="@+id/tvStatus"
+                    android:textColor="@color/pink"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"></TextView>
             </LinearLayout>
@@ -147,12 +160,14 @@
 
                 <TextView
                     android:layout_width="100dp"
+                    android:textColor="@color/pink"
                     android:layout_height="wrap_content"
                     android:maxLength="38"
                     android:text="Giá bán(vnđ)" />
 
                 <TextView
                     android:id="@+id/tvPrice"
+                    android:textColor="@color/pink"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -167,12 +182,14 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/pink"
                     android:maxLength="38"
                     android:text="Phụ kiện" />
 
                 <TextView
                     android:id="@+id/tvAccessories"
                     android:layout_width="200dp"
+                    android:textColor="@color/pink"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
@@ -187,9 +204,11 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:maxLength="38"
+                    android:textColor="@color/pink"
                     android:text="Mô tả" />
 
                 <TextView
+                    android:textColor="@color/pink"
                     android:id="@+id/tvDescription"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content" />

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.phanv.camera.Model.AccountModel.LoginTask;
 import com.example.phanv.camera.R;
+import com.example.phanv.camera.View.Other.MainActivity;
 
 public class LoginFragment extends Fragment {
     private EditText edLoginName;
@@ -66,7 +67,9 @@ public class LoginFragment extends Fragment {
         if (i > 0) {
             Intent intent = new Intent(getActivity(), ViewAccountActivity.class);
             getActivity().finish();
+            MainActivity.idAccount = i + "";
             startActivity(intent);
+
         } else {
             if (i == 0) {
                 Toast.makeText(this.getContext(), "Thông tin tài khoản không đúng", Toast.LENGTH_SHORT).show();

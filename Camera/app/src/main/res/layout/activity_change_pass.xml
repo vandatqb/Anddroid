@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".View.AccontView.ChangePassActivity">
@@ -15,7 +17,8 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Mật khẩu hiện tại" />
+            android:text="Mật khẩu hiện tại"
+            android:textColor="@color/pink"/>
 
         <EditText
             android:id="@+id/edOldPass"
@@ -35,6 +38,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/pink"
             android:maxLength="38"
             android:text="Mật khẩu mới" />
 
@@ -55,6 +59,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/pink"
             android:maxLength="38"
             android:text="Nhâp lại mật khẩu" />
 
@@ -76,6 +81,7 @@
             android:id="@+id/btChangePass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/pink"
             android:text="Đổi mật khẩu" />
     </LinearLayout>
 </LinearLayout>

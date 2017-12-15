@@ -24,6 +24,7 @@ public class ProductFragment extends Fragment implements SearchView.OnQueryTextL
     RecyclerView rcvListProduct;
     SearchView searchView;
     ListProductTask task;
+    FloatingActionButton fabAdd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,9 +37,17 @@ public class ProductFragment extends Fragment implements SearchView.OnQueryTextL
         View view = inflater.inflate(R.layout.fragment_product, container, false);
         rcvListProduct = view.findViewById(R.id.rcvProduct);
         searchView = view.findViewById(R.id.svProduct);
+        fabAdd=view.findViewById(R.id.fab);
         searchView.setOnQueryTextListener(this);
         task = new ListProductTask(this,getActivity());
         task.execute("1");
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),AddProductActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
     @Override

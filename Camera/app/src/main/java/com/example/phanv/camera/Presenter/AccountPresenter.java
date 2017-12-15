@@ -26,4 +26,11 @@ public class AccountPresenter {
         return process.checkLogin(name, pass);
     }
 
+    public Boolean checkLoginName(String loginName) {
+        return process.chekLoginName(loginName);
+    }
+
+    public int register(String loginName, String fullName, String phone, String pass, String address, String email, String image) {
+        return process.register(loginName, fullName, phone, pass, address, email, image);
+    }
 }

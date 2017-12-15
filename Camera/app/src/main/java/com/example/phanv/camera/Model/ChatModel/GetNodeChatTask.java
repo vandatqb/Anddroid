@@ -22,7 +22,6 @@ public class GetNodeChatTask extends AsyncTask<String, Void, Void> {
     protected Void doInBackground(String... values) {
 
         String idSend = MainActivity.idAccount;
-        activity.idSend = idSend;
         String idReceive = values[0];
         String node = process.getNode(idSend, idReceive);
         activity.node = node;

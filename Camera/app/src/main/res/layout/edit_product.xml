@@ -22,12 +22,13 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapCharacters"
-                    android:text="Tên máy" />
+                    android:text="Tên máy"
+                    android:textColor="@color/pink"/>
 
                 <EditText
                     android:id="@+id/edCameraName"
                     android:layout_width="200dp"
+                    android:inputType="text"
                     android:layout_height="wrap_content"
                     android:maxLength="19" />
 
@@ -42,7 +43,8 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Hãng" />
+                    android:text="Hãng"
+                    android:textColor="@color/pink"/>
 
                 <Spinner
                     android:id="@+id/spnMaker"
@@ -58,6 +60,7 @@
 
                 <TextView
                     android:layout_width="100dp"
+                    android:textColor="@color/pink"
                     android:layout_height="wrap_content"
                     android:text="Quay phim" />
 
@@ -77,7 +80,8 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:maxLength="38"
-                    android:text="Số điểm ảnh" />
+                    android:text="Số điểm ảnh"
+                    android:textColor="@color/pink"/>
 
                 <EditText
                     android:id="@+id/edMega"
@@ -95,7 +99,8 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Tinhh trạng" />
+                    android:text="Tinhh trạng"
+                    android:textColor="@color/pink"/>
 
                 <Spinner
                     android:id="@+id/spnStatus"
@@ -112,13 +117,15 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:maxLength="38"
+
+                    android:textColor="@color/pink"
                     android:text="Giá bán(vnđ)" />
 
                 <EditText
                     android:id="@+id/edPrice"
                     android:layout_width="200dp"
                     android:inputType="number"
+                    android:maxLength="10"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -131,7 +138,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:maxLength="38"
+                    android:textColor="@color/pink"
                     android:text="Phụ kiện" />
 
                 <EditText
@@ -150,7 +157,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:maxLength="38"
+                    android:textColor="@color/pink"
                     android:text="Hình ảnh" />
 
                 <ImageView
@@ -186,7 +193,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:maxLength="38"
+                    android:textColor="@color/pink"
                     android:text="Mô tả" />
 
                 <EditText

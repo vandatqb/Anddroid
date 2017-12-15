@@ -4,18 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
     tools:context=".View.AccontView.ViewAccountActivity">
     <TextView
-        android:layout_gravity="center"
-        android:text="Thông tin tài khoản"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="THÔNG TIN TÀI KHOẢN"
+        android:paddingLeft="8dp"
+        android:gravity="center"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:background="@color/pink"
+        android:textColor="#ffffff"
+        />
+
     <include
         layout="@layout/account_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
@@ -25,16 +34,19 @@
             android:id="@+id/btEditAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chỉnh sửa" />
+            android:text="Chỉnh sửa"
+            android:textColor="@color/pink"/>
         <Button
             android:id="@+id/btEditPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đổi mật khẩu" />
+            android:text="Đổi mật khẩu"
+            android:textColor="@color/pink"/>
         <Button
             android:id="@+id/btExit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/pink"
             android:text="Thoát" />
     </LinearLayout>
 </LinearLayout>

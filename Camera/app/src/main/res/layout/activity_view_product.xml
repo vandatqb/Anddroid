@@ -20,17 +20,27 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="THÔNG TIN NGƯỜI BÁN"
+            android:paddingLeft="8dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:background="@color/pink"
+            android:textColor="#ffffff"
+            />
 
         <LinearLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="Người bán : " />
 
             <LinearLayout
                 android:layout_width="200dp"
@@ -53,6 +63,7 @@
                     <TextView
                         android:id="@+id/tvNameAccount"
                         android:layout_width="200dp"
+                        android:paddingLeft="4dp"
                         android:layout_height="wrap_content"
                         android:text="Name" />
 
@@ -96,7 +107,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/vpDetailImage"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:background="@android:color/white"
         android:visibility="invisible" />
 </RelativeLayout>

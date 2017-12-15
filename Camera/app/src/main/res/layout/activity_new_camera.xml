@@ -8,11 +8,17 @@
     tools:context=".View.ProductView.AddProductActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:text="THÊM MÁY ẢNH"
-        android:textStyle="bold" />
+        android:paddingLeft="8dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:background="@color/pink"
+        android:textColor="#ffffff"
+        />
+
     <include
         layout="@layout/edit_product"
         android:layout_width="match_parent"
@@ -28,20 +34,8 @@
             android:id="@+id/btPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/pink"
             android:text="Đăng" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/other" />
     </LinearLayout>
 </LinearLayout>
 

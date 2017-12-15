@@ -20,8 +20,6 @@ public class ProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product);
         viewPager = findViewById(R.id.vpProduct);
         tabLayout = findViewById(R.id.tLProduct);
-//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//        StrictMode.setThreadPolicy(policy);
         FragmentManager manager = getSupportFragmentManager();
         ProducAdapter adapter = new ProducAdapter(manager);
         viewPager.setAdapter(adapter);

@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgViewAccount"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:padding="6dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_image"
         />
 
     <LinearLayout
@@ -22,12 +23,14 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:inputType="textCapCharacters"
-            android:text="Tên đăng nhập"
+            android:text="Tài khoản"
+            android:textColor="@color/pink"
             android:id="@+id/tvViewLGName"/>
 
         <TextView
             android:id="@+id/tvLGName"
             android:layout_width="200dp"
+            android:textColor="@color/pink"
             android:layout_height="wrap_content"
             android:maxLength="19" />
 
@@ -41,12 +44,15 @@
 
         <TextView
             android:layout_width="100dp"
+            android:textColor="@color/pink"
             android:layout_height="wrap_content"
             android:text="Tên" />
+
 
         <TextView
             android:id="@+id/tvFullName"
             android:layout_width="200dp"
+            android:textColor="@color/pink"
             android:layout_height="wrap_content"
             android:maxLength="38" />
 
@@ -61,12 +67,14 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:maxLength="19"
+            android:textColor="@color/pink"
+            android:maxLength="13"
             android:text="Số điện thoại" />
 
         <TextView
             android:id="@+id/tvPhone"
             android:layout_width="200dp"
+            android:textColor="@color/pink"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -82,11 +90,13 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:maxLength="38"
+            android:textColor="@color/pink"
             android:text="Email" />
 
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="200dp"
+            android:textColor="@color/pink"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -99,6 +109,7 @@
 
         <TextView
             android:layout_width="100dp"
+            android:textColor="@color/pink"
             android:layout_height="wrap_content"
             android:maxLength="38"
             android:text="Địa chỉ" />
@@ -106,6 +117,7 @@
         <TextView
             android:id="@+id/tvAddress"
             android:layout_width="200dp"
+            android:textColor="@color/pink"
             android:layout_height="wrap_content" />
 
     </LinearLayout>

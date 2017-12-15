@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,11 +30,12 @@ import com.example.phanv.camera.View.AccontView.ViewAccountActivity;
 import com.example.phanv.camera.View.ChatView.ListChatActivity;
 import com.example.phanv.camera.View.ProductView.ListProductAdapter;
 import com.example.phanv.camera.View.ProductView.ProductActivity;
+import com.example.phanv.camera.View.SearchView.SearchProductActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,SearchView.OnQueryTextListener, android.support.v7.widget.SearchView.OnQueryTextListener {
     public static String idAccount;
     public static String loginName;
     //private DataLocalPresenter presenter;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private GetListMenuProductTask taskListCanon;
     private GetListMenuProductTask taskUnderTenMillion;
     private Activity activity;
+    android.support.v7.widget.SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rcvNikon = findViewById(R.id.rcvNikonProduct);
         rcvUderTenMillion = findViewById(R.id.rcvUnderTenMillion);
         activity = this;
+        searchView = findViewById(R.id.svHome);
+        searchView.setOnQueryTextListener(this);
         //presenter = new DataLocalPresenter(activity);
         setSupportActionBar(toolbar);
         getListMakerAndVideo();
@@ -224,5 +229,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        if(s.length()>1){
+                Intent intent = new Intent(this, SearchProductActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("value",s);
+                intent.putExtra("data",bundle);
+                startActivity(intent);
+        }
+        else {
+            Toast.makeText(activity, "Nội dung tìm kiếm quá ngắn", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
     }
 }

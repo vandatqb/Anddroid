@@ -21,6 +21,7 @@ import com.example.phanv.camera.Model.ChatModel.Chat;
 import com.example.phanv.camera.Model.ChatModel.GetChatDetailTask;
 import com.example.phanv.camera.Model.ChatModel.GetNodeChatTask;
 import com.example.phanv.camera.R;
+import com.example.phanv.camera.View.Other.MainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +41,7 @@ public class ChatActivity extends AppCompatActivity {
     private ScrollView scrollView;
     private FirebaseDatabase database;
     private DatabaseReference reference;
-    public   String idSend;
+    private  String idSend;
     private  String idReceive;
     private GetNodeChatTask task;
     private GetChatDetailTask taskChat;
@@ -49,8 +50,9 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
+        idSend=MainActivity.idAccount;
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("id");
@@ -107,7 +109,7 @@ public class ChatActivity extends AppCompatActivity {
         for (Chat chat : list) {
             String content = chat.getContent();
             String idSend2 = chat.getIdSend();
-            int type = idSend2.equals(idReceive) ? 1 : 0;
+            int type = idSend2.equals(idSend) ? 1 : 0;
             String time = chat.getTime();
             addMessageBox(content, type, time);
         }

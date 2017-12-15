@@ -102,7 +102,8 @@ public class AccountProcess {
             }
         }
     }
-    public Boolean chekLoginName(String loginName){
+
+    public Boolean chekLoginName(String loginName) {
         ArrayList<Property> list = new ArrayList<>();
         String soap = "http://tempuri.org/checkAccount";
         String operation = "checkAccount";
@@ -115,4 +116,28 @@ public class AccountProcess {
             return false;
         }
     }
+
+    public int register(String loginName, String fullName, String phone, String pass, String address, String email, String image) {
+        final String soap = "http://tempuri.org/addAccount";
+        final String operation = "addAccount";
+        ArrayList<Property> list = new ArrayList<>();
+        Property pr = new Property("login_name", loginName);
+        list.add(pr);
+        Property pr1 = new Property("full_name", fullName);
+        list.add(pr1);
+        Property pr2 = new Property("phone", phone);
+        list.add(pr2);
+        Property pr3 = new Property("pass", pass);
+        list.add(pr3);
+        Property pr4 = new Property("address", address);
+        list.add(pr4);
+        Property pr5 = new Property("email", email);
+        list.add(pr5);
+        Property pr6 = new Property("image", image);
+        list.add(pr6);
+
+        int status = Integer.parseInt(connect.processString(list, soap, operation));
+        return status;
+    }
+
 }
