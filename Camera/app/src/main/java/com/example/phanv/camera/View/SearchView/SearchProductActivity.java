@@ -1,8 +1,8 @@
 package com.example.phanv.camera.View.SearchView;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
@@ -16,6 +16,7 @@ import com.example.phanv.camera.View.ProductView.ListProductAdapter;
 import java.util.List;
 
 public class SearchProductActivity extends AppCompatActivity implements SearchInterface{
+    private Boolean load=false;
     private ListProductAdapter adapter;
     private String value;
     private TextView tvKey;
@@ -36,28 +37,6 @@ public class SearchProductActivity extends AppCompatActivity implements SearchIn
         getKey();
         taskCount = new GetCountSearchTask(this);
         taskCount.execute(value);
-        rcvSearch.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if(dy<=0)
-                {
-                    if(number<countSearch)
-                    {
-                        if(number+5<countSearch)
-                        {
-                            getListSearchProduct(number+5);
-                            number=number+5;
-                            tvSearchResult.setText("Hiện thị "+(number+5)+"/"+countSearch+" kết quả");
-                        }
-                        else {
-                            getListSearchProduct(countSearchi);
-                            tvSearchResult.setText("Hiện thị "+countSearch+"/"+countSearch+" kết quả");
-                        }
-                    }
-                }
-            }
-        });
     }
 
     private void getKey() {
@@ -92,5 +71,36 @@ public class SearchProductActivity extends AppCompatActivity implements SearchIn
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rcvSearch.setLayoutManager(layoutManager);
         rcvSearch.setAdapter(adapter);
+        load=true;
+        rcvSearch.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(load)
+                {
+                    if(dy<=0)
+                    {
+                        load=false;
+                        if(number<countSearch)
+                        {
+                            if(number+5<countSearch)
+                            {
+                                getListSearchProduct(number+5);
+                                number=number+5;
+                                tvSearchResult.setText("Hiện thị "+(number+5)+"/"+countSearch+" kết quả");
+                            }
+                            else {
+                                if(number!=countSearch) {
+                                    getListSearchProduct(countSearch);
+                                    tvSearchResult.setText("Hiện thị " + countSearch + "/" + countSearch + " kết quả");
+                                    number = countSearch;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        });
     }
 }
