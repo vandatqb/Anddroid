@@ -22,9 +22,6 @@ public class ListChatActivity extends AppCompatActivity implements SearchView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_chat);
-
-//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//        StrictMode.setThreadPolicy(policy);
         mRecyclerView = findViewById(R.id.rcvListChat);
         svChat = findViewById(R.id.searchListChat);
         svChat.setOnQueryTextListener(this);
@@ -49,7 +46,6 @@ public class ListChatActivity extends AppCompatActivity implements SearchView.On
     @Override
     public boolean onQueryTextChange(String newText) {
         mAdapter.getFilter().filter(newText);
-
         return false;
     }
 

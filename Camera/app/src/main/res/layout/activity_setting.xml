@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.example.phanv.camera.View.Other.SettingActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink"
+        android:gravity="center"
+        android:paddingBottom="6dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="6dp"
+        android:text="Cài đặt"
+        android:textColor="#ffffff" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="6dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Chọn giao diện "
+            android:textColor="@color/pink" />
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:text="A"
+            android:background="@color/pink"
+            android:textColor="@color/white"
+            />
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:background="#00FFFF"
+            android:text="A"
+            android:textColor="@color/pink"/>
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:background="#00FF00"
+            android:text="A"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/pink"
+            android:text="Thông báo tin nhắn " />
+
+        <Switch
+            android:id="@+id/swMessage"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:shadowColor="@color/pink"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/pink"
+            android:text="Thông báo máy ảnh" />
+
+        <Switch
+            android:id="@+id/swProdduct"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:shadowColor="@color/pink"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutNotifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn mức giá" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.crystal.crystalrangeseekbar.widgets.BubbleThumbRangeSeekbar
+            android:id="@+id/rangeSeekBar"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:bar_color="#EE88F7"
+            app:bar_highlight_color="#D810EA"
+            app:corner_radius="10"
+            app:data_type="_integer"
+            app:left_thumb_color="#8D0D99"
+            app:left_thumb_color_pressed="#56005E"
+            app:max_value="150"
+            app:min_value="0"
+            app:right_thumb_color="#8D0D99"
+            app:right_thumb_color_pressed="#56005E"
+            app:steps="2" />
+
+        <Button
+            android:id="@+id/btApply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Áp dụng"
+            android:textColor="@color/pink" />
+
+    </LinearLayout>
+</LinearLayout>

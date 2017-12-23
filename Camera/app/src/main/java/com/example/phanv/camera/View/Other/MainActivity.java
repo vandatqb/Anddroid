@@ -35,7 +35,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,SearchView.OnQueryTextListener, android.support.v7.widget.SearchView.OnQueryTextListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener, android.support.v7.widget.SearchView.OnQueryTextListener {
     public static String idAccount;
     public static String loginName;
     //private DataLocalPresenter presenter;
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         accountInformation = process.read();
         if (!accountInformation.getId().equals("0")) {
             idAccount = accountInformation.getId();
-            loginName=accountInformation.getLoginName();
+            loginName = accountInformation.getLoginName();
             loged = true;
         }
     }
@@ -169,14 +169,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
             }
+            case R.id.nav_setting: {
+                Intent intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
+                break;
+            }
         }
-
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -202,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
-            Toast.makeText(this, "Refeshsing", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Đang làm mới", Toast.LENGTH_SHORT).show();
             load();
 
         }
@@ -233,14 +236,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onQueryTextSubmit(String s) {
-        if(s.length()>1){
-                Intent intent = new Intent(this, SearchProductActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("value",s);
-                intent.putExtra("data",bundle);
-                startActivity(intent);
-        }
-        else {
+        if (s.length() > 1) {
+            Intent intent = new Intent(this, SearchProductActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("value", s);
+            intent.putExtra("data", bundle);
+            startActivity(intent);
+        } else {
             Toast.makeText(activity, "Nội dung tìm kiếm quá ngắn", Toast.LENGTH_SHORT).show();
         }
         return false;

@@ -64,4 +64,7 @@ public class ProductPresenter {
     public List<Product> getFavouriteProduct(String id) {
         return process.getFavouriteProduct(id);
     }
+    public Product getLastProductAdded(){
+        return process.getLastProductAdded();
+    }
 }

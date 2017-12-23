@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.example.phanv.camera.Model.AccountModel.Account;
 import com.example.phanv.camera.Model.AccountModel.AccountProcess;
+import com.example.phanv.camera.Model.AccountModel.Setting;
 import com.example.phanv.camera.Model.ProductModel.Maker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -100,5 +101,23 @@ public class DataLocalProcess {
         }.getType();
         list = gson.fromJson(json, type);
         return list;
+    }
+    public void writeSetting(Boolean setting,int min,int max)
+    {
+        SharedPreferences store = activity.getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = store.edit();
+        editor.putBoolean("setting", setting);
+        editor.putInt("min", min);
+        editor.putInt("max", max);
+        editor.commit();
+    }
+    public Setting readSetting()
+    {
+        SharedPreferences store = activity.getSharedPreferences("data", Context.MODE_PRIVATE);
+        boolean settingValue = store.getBoolean("setting", false);
+        int min =   store.getInt("min",0);
+        int max =   store.getInt("max",10);
+        Setting setting = new Setting(settingValue,min,max);
+        return setting;
     }
 }

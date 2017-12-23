@@ -29,6 +29,8 @@ repositories {
 //load anh
 
 dependencies {
+   //seek bar
+    compile 'com.crystal:crystalrangeseekbar:1.1.3'
     //resize anh
     compile 'com.github.hkk595:Resizer:v1.3'
     //load anh

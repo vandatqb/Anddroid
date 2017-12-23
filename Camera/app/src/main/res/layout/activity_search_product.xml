@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.phanv.camera.View.SearchView.SearchProductActivity">
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:gravity="center"
+        android:text="Kết quả tìm kiếm"
+        android:background="@color/pink"
+        android:textColor="#ffffff"/>
+    <TextView
         android:gravity="center"
         android:layout_width="match_parent"
         android:textColor="@color/pink"

@@ -47,7 +47,7 @@ public class FavoriteProductFragment extends Fragment implements GetListProductI
 
     @Override
     public void loadSuccess(List<Product> list) {
-        adapter = new ListProductAdapter(list, this.getActivity(), 1, 0);
+        adapter = new ListProductAdapter(list, this.getActivity(), 2, 0);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rcvListFavoriteProduct.setLayoutManager(layoutManager);

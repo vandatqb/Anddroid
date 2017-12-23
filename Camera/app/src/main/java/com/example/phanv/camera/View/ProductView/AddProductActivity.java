@@ -17,12 +17,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.phanv.camera.Model.DataLocalModel.AccountInformation;
 import com.example.phanv.camera.Model.DataLocalModel.DataLocalProcess;
 import com.example.phanv.camera.Model.ProductModel.AddProductTask;
+import com.example.phanv.camera.Model.ProductModel.GetLastProductAddedTask;
 import com.example.phanv.camera.Model.ProductModel.Maker;
 import com.example.phanv.camera.Model.ProductModel.Product;
 import com.example.phanv.camera.R;
+import com.example.phanv.camera.View.Other.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,6 +41,7 @@ import java.util.List;
 import me.echodev.resizer.Resizer;
 
 public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
+    GetLastProductAddedTask taskAdd;
     AddProductTask task;
     public Boolean success = false;
     private StorageReference mStorage;
@@ -307,9 +309,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void addProduct() {
-        DataLocalProcess data = new DataLocalProcess(this);
-        AccountInformation accountInformation = data.read();
-        Product product = new Product("1", accountInformation.getId(), nameCamera, idMaker, "aaa",
+        Product product = new Product("1", MainActivity.idAccount, nameCamera, idMaker, "aaa",
                 idStatus, mega, idVideo, "nnnn", access, price, "aa", "0", linkImage, linkImage1, linkImage2, description);
         task.execute(product);
     }
@@ -319,6 +319,8 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             Intent intent = new Intent(this, ProductActivity.class);
             finish();
             startActivity(intent);
+            taskAdd = new GetLastProductAddedTask();
+            taskAdd.execute();
         } else {
             Toast.makeText(this, "Đã có lỗi xảy ra ", Toast.LENGTH_SHORT).show();
         }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -86,23 +87,7 @@ public class ViewDetailAccountActivity extends AppCompatActivity implements Acco
         edComment = findViewById(R.id.edComment);
         rtComment = findViewById(R.id.rtbAddComment);
         imgComment = findViewById(R.id.icAddComment);
-        imgComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String content = edComment.getText().toString();
-                Float start = rtComment.getRating();
-                if (content.length() > 2 & start > 0) {
-                    addComment(content, start);
-                } else {
-                    if (content.length() < 3) {
-                        Toast.makeText(ViewDetailAccountActivity.this, "Nội dung đánh giá quá ngắn ", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(ViewDetailAccountActivity.this, "Bạn chưa chọn sao", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            }
-        });
+        imgComment.setOnClickListener(this);
     }
 
     private void getAvgStart() {
@@ -134,13 +119,7 @@ public class ViewDetailAccountActivity extends AppCompatActivity implements Acco
         if (view == imgCall) {
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 2222);
                 return;
             } else {
                 startActivity(intent);
@@ -162,7 +141,22 @@ public class ViewDetailAccountActivity extends AppCompatActivity implements Acco
             }
 
         }
-
+        if (view == imgComment)
+            if (MainActivity.loged) {
+                String content = edComment.getText().toString();
+                Float start = rtComment.getRating();
+                if (content.length() > 2 & start > 0) {
+                    addComment(content, start);
+                } else {
+                    if (content.length() < 3) {
+                        Toast.makeText(ViewDetailAccountActivity.this, "Nội dung đánh giá quá ngắn ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ViewDetailAccountActivity.this, "Bạn chưa chọn sao", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+            }
     }
 
     @Override
@@ -233,4 +227,20 @@ public class ViewDetailAccountActivity extends AppCompatActivity implements Acco
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 2222) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+                startActivity(intent);
+            }
+        }
+    }
 }

@@ -151,6 +151,7 @@ public class ProductProcess {
                 result.add(product);
             }
         }
+
         return result;
     }
 
@@ -407,6 +408,34 @@ public class ProductProcess {
                 Product product = new Product(idProduct, idAccount, name, idMaker, nameMaker, type, mega, video, nameVideo, addition, price, time, status, img, img1, img2, des);
                 result.add(product);
             }
+        }
+        return result;
+    }
+    public Product getLastProductAdded() {
+        Product result = new Product();
+        List<Property> list = new ArrayList<>();
+        String address = "http://tempuri.org/getLastProductAdded";
+        String action = "getLastProductAdded";
+        SoapObject ob = connect.process(list, address, action);
+        if ((ob != null)) {
+            String idProduct = ob.getProperty("IdProduct").toString();
+            String idAccount = ob.getProperty("IdAccount").toString();
+            String name = ob.getProperty("Name").toString();
+            String nameMaker = ob.getProperty("NameMaker").toString();
+            String idMaker = ob.getProperty("IdMaker").toString();
+            String type = ob.getProperty("Type").toString();
+            String mega = ob.getProperty("Mega").toString();
+            String nameVideo = ob.getProperty("NameVideo").toString();
+            String video = ob.getProperty("IdVideo").toString();
+            String addition = ob.getProperty("Addition").toString();
+            String price = ob.getProperty("Price").toString();
+            String time = ob.getProperty("Time").toString();
+            String status = ob.getProperty("Status").toString();
+            String img = ob.getProperty("Img").toString();
+            String img1 = ob.getProperty("Image").toString();
+            String img2 = ob.getProperty("Image3").toString();
+            String des = ob.getProperty("Description").toString();
+            result = new Product(idProduct, idAccount, name, idMaker, nameMaker, type, mega, video, nameVideo, addition, price, time, status, img, img1, img2, des);
         }
         return result;
     }

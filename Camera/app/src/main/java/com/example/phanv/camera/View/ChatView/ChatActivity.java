@@ -129,10 +129,12 @@ public class ChatActivity extends AppCompatActivity {
 
         if (type == 1) {
             lp2.gravity = Gravity.RIGHT;
+            lp2.setMargins(3,0,0,0);
             textView.setTextColor(Color.BLUE);
             textView.setTextSize(22);
         } else {
             lp2.gravity = Gravity.LEFT;
+            lp2.setMargins(0,0,3,0);
             textView.setTextSize(22);
             textView.setTextColor(Color.BLACK);
         }

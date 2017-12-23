@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context="com.example.phanv.camera.View.ProductView.ViewDetailAccountActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="THÔNG TIN NGƯỜI BÁN"
-                android:gravity="center"
-                android:paddingLeft="8dp"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
                 android:background="@color/pink"
-                android:textColor="#ffffff"
-                />
+                android:gravity="center"
+                android:paddingBottom="6dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="6dp"
+                android:text="THÔNG TIN NGƯỜI BÁN"
+                android:textColor="#ffffff" />
+
             <include
                 layout="@layout/account_view"
                 android:layout_width="wrap_content"
@@ -58,88 +55,87 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="8dp"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:gravity="center"
-                android:text="Sản phẩm của người này"
                 android:background="@color/pink"
-                android:textColor="#ffffff"/>
+                android:gravity="center"
+                android:paddingBottom="6dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="6dp"
+                android:text="Sản phẩm của người này"
+                android:textColor="#ffffff" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rcvViewProductAccount"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="8dp"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:text="Đánh giá về người này"
                 android:background="@color/pink"
                 android:gravity="center"
-                android:textColor="#ffffff"/>
+                android:paddingBottom="6dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="6dp"
+                android:text="Đánh giá về người này"
+                android:textColor="#ffffff" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RatingBar
                     android:id="@+id/rtbComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     style="?android:attr/ratingBarStyleSmall"
-                    />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/viewInformationComment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            <ScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/edComment"
                     android:layout_width="250dp"
-                    android:hint="Thêm  đánh giá"
                     android:layout_height="wrap_content"
-                    />
+                    android:hint="Thêm  đánh giá" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
                     <RatingBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:id="@+id/rtbAddComment"
                         style="?android:attr/ratingBarStyleSmall"
-                        android:isIndicator="false"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="false" />
 
                     <ImageView
+                        android:id="@+id/icAddComment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:id="@+id/icAddComment"
-                        android:src="@drawable/ic_send"/>
+                        android:src="@drawable/ic_send" />
                 </LinearLayout>
 
             </LinearLayout>
-            </ScrollView>
+
             <android.support.v7.widget.RecyclerView
-                android:layout_gravity="left"
                 android:id="@+id/rcvComment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>

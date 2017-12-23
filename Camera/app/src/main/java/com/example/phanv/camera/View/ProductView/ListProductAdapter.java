@@ -42,7 +42,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     public ViewProductAccount onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v;
-        if (type == 1) {
+        if (type == 1 || type == 2) {
             v = inflater.inflate(R.layout.product, parent, false);
         } else {
             v = inflater.inflate(R.layout.prodcut_horizontal, parent, false);
@@ -62,16 +62,25 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
             holder.tvId.setText(pr.getId());
             holder.tvIdAccount.setText(pr.getIdAccount());
         } else {
-            holder.tvTime.setText("Đăng lúc : " + pr.getTime());
-            holder.tvPrice.setText("Giá : " + pr.getPrice());
-            holder.tvName.setText(pr.getName());
-            holder.tvId.setText(pr.getId());
-            holder.tvIdAccount.setText(pr.getIdAccount());
-            if (pr.getStatus().equals("1")) {
-                holder.tvStatus.setText(" - Đã duyệt");
+            if (type == 2) {
+                holder.tvName.setText(pr.getName());
+                holder.tvPrice.setText("Giá : " + pr.getPrice());
+                holder.tvId.setText(pr.getId());
+                holder.tvIdAccount.setText(pr.getIdAccount());
+                holder.tvTime.setText("Đăng bán lúc : " + pr.getTime());
             } else {
-                holder.tvStatus.setText(" - Chưa duyệt");
+                holder.tvTime.setText("Đăng lúc : " + pr.getTime());
+                holder.tvPrice.setText("Giá : " + pr.getPrice());
+                holder.tvName.setText(pr.getName());
+                holder.tvId.setText(pr.getId());
+                holder.tvIdAccount.setText(pr.getIdAccount());
+                if (pr.getStatus().equals("1")) {
+                    holder.tvStatus.setText(" - Đã duyệt");
+                } else {
+                    holder.tvStatus.setText(" - Chưa duyệt");
+                }
             }
+
         }
 
     }
